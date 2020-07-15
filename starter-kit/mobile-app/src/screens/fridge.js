@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -15,12 +15,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingBottom: 25,
     paddingTop: 75
-  },
-  image: {
-    alignSelf: 'flex-start',
-    height: '20%',
-    width:'50%',
-    resizeMode: 'contain'
   },
   image: {
     alignSelf: 'flex-start',
@@ -74,6 +68,9 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign:'center',
     marginTop: 15
+  },
+  foodButton: {
+
   }
 });
 
@@ -83,31 +80,89 @@ const styles = StyleSheet.create({
 // Display food items on shelves
 // Display Progress Bar
 
-const Fridge = () => (
-  <View style={styles.center}>
-    <ScrollView style={styles.scroll}>
-      <Text style={styles.subtitle}>Fridge!</Text>
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-        <Image
-          style={styles.foodItem}
-          source={require('../images/tomato.png')}
-        />
-        <Image
-          style={styles.foodItem}
-          source={require('../images/tomato.png')}
-        />
-        <Image
-          style={styles.foodItem}
-          source={require('../images/tomato.png')}
-        />
+
+class Fridge extends Component {
+
+  render = () => {
+    const Fridge = () => wrapInFridge();
+
+    return (
+      <Fridge />
+    );
+  };
+}
+
+function wrapInFridge() {
+    const Shelves = () => getShelves();
+
+    return (
+      <View style={styles.center}>
+        <ScrollView style={styles.scroll}>
+          <Text style={styles.subtitle}>Fridge!</Text>
+          <Shelves />
+        </ScrollView>
+      </View>
+
+    );
+}
+
+function getShelves() {
+  const allFoodItems = getAllFoodItems();
+
+  // Create items on shelf in groups of four
+  // Return/Display list of shelves
+
+  // Column
+  let shelves = [];
+  // Row
+  let shelf = [];
+  let numItems = 0;
+
+  // Traverse items in order
+  allFoodItems.forEach(function(food) {
+    let foodItem = createFoodItem(food);
+    shelf.push(foodItem);
+    numItems++;
+
+    // Row is filled or last row
+    if (numItems % 4 === 0 || numItems === allFoodItems.length) {
+      shelves.push(
+        <View style={styles.center}>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+            {shelf}
+          </View>
+          <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
+        </View>
+      );
+
+      // Reset to empty shelf
+      shelf = [];
+    }
+  });
+
+  return shelves;
+}
+
+function getAllFoodItems() {
+  // Get items for user
+  return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
+  //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
+};
+
+function createFoodItem(foodItem) {
+  return (
+    <TouchableHighlight
+      onPress={()=>{}}
+      underlayColor='#dcdcdc'
+    >
+      <View>
         <Image
           style={styles.foodItem}
           source={require('../images/tomato.png')}
         />
       </View>
-      <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
-    </ScrollView>
-  </View>
-);
+     </TouchableHighlight>
+  );
+};
 
 export default Fridge;
