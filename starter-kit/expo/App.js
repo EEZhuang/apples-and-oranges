@@ -9,6 +9,8 @@ import LoadingScreen from './src/screens/loading';
 import Fridge from './src/screens/fridge';
 import Add from './src/screens/addFoodItem';
 import Details from './src/screens/foodItemDetails';
+import { useFonts } from '@use-expo/font';
+import { AppLoading } from 'expo';
 // import Chat from './src/screens/chat';
 // import Map from './src/screens/map';
 
@@ -48,7 +50,7 @@ const TabLayout = () => (
     />
     <Tab.Screen
       name='Details'
-      component={Details}
+      component={DetailsStackLayout}
       options={{
         tabBarIcon: ({color}) => (<MapIcon fill={color} />)
       }}
@@ -58,14 +60,23 @@ const TabLayout = () => (
 
 const AddStackLayout = () => (
   <Stack.Navigator>
-    <Stack.Screen name='Add food item'>
-      {(props) => <Add {...props} navigation={props.navigation} />}
-    </Stack.Screen>
+    <Stack.Screen name='Add food item' component={Add} />
+  </Stack.Navigator>
+);
+
+const DetailsStackLayout = () => (
+  <Stack.Navigator>
+    <Stack.Screen name='Locate Assistance' component={Details} />
   </Stack.Navigator>
 );
 
 const App = () => {
   const [isLoading, setIsLoading] = React.useState(true);
+  let [fontsLoaded] = useFonts({
+    'IBMPlexSans-Bold': require('./src/fonts/IBMPlex/IBMPlexSans-Bold.ttf'),
+    'IBMPlexSans-Light': require('./src/fonts/IBMPlex/IBMPlexSans-Light.ttf'),
+    'IBMPlexSans-Medium': require('./src/fonts/IBMPlex/IBMPlexSans-Medium.ttf'),
+  });
 
 
   React.useEffect(() => {
@@ -75,7 +86,7 @@ const App = () => {
   }, []);
 
   if (isLoading) {
-    return (<LoadingScreen />);
+    return (<AppLoading />);
   } else {
     return (
       <NavigationContainer>
