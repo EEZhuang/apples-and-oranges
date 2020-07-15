@@ -1,6 +1,6 @@
 import React from 'react';
 import { calcTimeDelta } from 'react-countdown'
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking, TextInput } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking, TextInput, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -85,10 +85,7 @@ class Details extends React.Component {
     super(props);
     this.state = {
       //json: null,
-      json: {"id":1,"name":"Carrot","exp-date":"2020-07-19"}, //for demo purposes
-      id: null,
-      name: null,
-      expDate: null
+      json: {"name":"Carrot","exp-date":"2012-03-19"} //for demo purposes
     };
   }
 
@@ -118,7 +115,7 @@ class Details extends React.Component {
     }
   }
 
-  displayEditDeleteButton() {
+  displayEditDoneButton() {
     if (this.state.edit == true) {
       return (
         <TouchableOpacity onPress={state => this.setState({edit: false})}>
@@ -132,6 +129,26 @@ class Details extends React.Component {
         </TouchableOpacity>
       );
       }
+  }
+
+  deleteItem() {
+    return fetch('http://localhost:3000/delete', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: this.state.json
+    }).then((json) => {
+      Alert.alert('Success!', 'Food item data deleted correctly')
+      this.setState({json: {"name":"","exp-date":"]"}}) //for demo purposes
+      //this.setState({json: null})
+      this.props.navigation.navigate('Fridge')
+    })
+      .catch((error) => {
+        Alert.alert('Error', 'There was a problem deleting food item data')
+        console.error(error)
+      })
   }
 
   render() {
@@ -150,8 +167,8 @@ class Details extends React.Component {
         </Text>
         {this.displayExpDate()}
         <View style={styles.buttonGroup}>
-          {this.displayEditDeleteButton()}
-          <TouchableOpacity onPress={() => {}}>
+          {this.displayEditDoneButton()}
+          <TouchableOpacity onPress={() => this.deleteItem()}>
             <Text style={styles.button}>Delete</Text>
           </TouchableOpacity>
         </View>

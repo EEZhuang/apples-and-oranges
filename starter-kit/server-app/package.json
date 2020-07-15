@@ -2,9 +2,10 @@
   "name": "solution-starter-kit-disasters-2020-server",
   "version": "0.0.1",
   "description": "Call for Code 2020 solution starter kit for natural disaster resiliency",
-  "main": "server.js",
+  "main": "foodServer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node foodServer.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

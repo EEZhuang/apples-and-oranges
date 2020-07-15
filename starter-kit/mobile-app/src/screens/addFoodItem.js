@@ -85,22 +85,8 @@ class Add extends Component {
     }
   }
 
-  generateUniqueID (name, expDate) {
-    const concat = name.concat(expDate)
-    return concat
-    /* console.log(concat)
-    sha256(concat).then(hash => {
-      return parseInt(hash)
-    }) */
-  }
-
   // POST to localhost:3000
   submit () {
-    console.debug(JSON.stringify({
-      id: this.generateUniqueID(this.state.name, this.state.expDate),
-      name: this.state.name,
-      'exp-date': this.state.expDate
-    }))
     return fetch('http://localhost:3000/food', {
       method: 'POST',
       headers: {
@@ -108,7 +94,6 @@ class Add extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: this.generateUniqueID(this.state.name, this.state.expDate),
         name: this.state.name,
         'exp-date': this.state.expDate
       })
@@ -119,7 +104,6 @@ class Add extends Component {
         expDate: null
       })
       this.props.navigation.navigate('Fridge')
-      // console.log(json)
     })
       .catch((error) => {
         Alert.alert('Error', 'There was a problem saving food item data')
