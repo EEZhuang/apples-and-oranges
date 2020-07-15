@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -107,7 +107,7 @@ function wrapInFridge() {
 }
 
 function getShelves() {
-  const allFoodItems = getAllFoodItems();
+  let allFoodItems = getAllFoodItems();
 
   // Create items on shelf in groups of four
   // Return/Display list of shelves
@@ -144,8 +144,24 @@ function getShelves() {
 }
 
 function getAllFoodItems() {
-  // Get items for user
-  return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
+  // get all food items
+  /*
+  */
+  let allFoodItems;
+  fetch('http://localhost:3000/food', {method: 'GET'})
+    .then((json) => {
+      Alert.alert('Success!', 'Successfully retrieved all food items')
+      console.log(json.json());
+      //allFoodItems = json.payload();
+    })
+    .catch((error) => {
+      Alert.alert('Error', 'There was a problem retrieving food items');
+      console.error(error);
+    })
+
+  return allFoodItems;
+
+  //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
   //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
 };
 
