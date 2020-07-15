@@ -82,103 +82,108 @@ const styles = StyleSheet.create({
 
 
 class Fridge extends Component {
+  constructor (props) {
+    super(props);
+    this.wrapInFridge = this.wrapInFridge.bind(this);
+    this.getShelves = this.getShelves.bind(this);
+    this.getAllFoodItems = this.getAllFoodItems.bind(this);
+    this.createFoodItem = this.createFoodItem.bind(this);
+
+    this.state = {
+      allFoodItems: []
+    };
+  }
+
+  wrapInFridge() {
+      const Shelves = () => this.getShelves();
+
+      return (
+        <View style={styles.center}>
+          <ScrollView style={styles.scroll}>
+            <Text style={styles.subtitle}>Fridge!</Text>
+            <Shelves />
+          </ScrollView>
+        </View>
+
+      );
+  }
+
+  getShelves() {
+    this.getAllFoodItems();
+    let allFoodItems = this.state.allFoodItems;
+
+    // Column
+    let shelves = [];
+    // Row
+    let shelf = [];
+    let numItems = 0;
+
+    // Traverse items in order
+    allFoodItems.forEach(function(food) {
+      let foodItem = this.createFoodItem(food);
+      shelf.push(foodItem);
+      numItems++;
+
+      // Row is filled or last row
+      if (numItems % 4 === 0 || numItems === allFoodItems.length) {
+        shelves.push(
+          <View style={styles.center}>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+              {shelf}
+            </View>
+            <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
+          </View>
+        );
+
+        // Reset to empty shelf
+        shelf = [];
+      }
+    });
+
+    return shelves;
+  }
+
+  getAllFoodItems() {
+    // get all food items
+    /*
+    */
+    fetch('http://localhost:3000/food', {method: 'GET'})
+      .then(res => res.json())
+      //.then(json => console.log(json))
+      //.then(json => allFoodItems = json)
+      .then(json => this.setState({ allFoodItems: json }))
+      .catch((error) => {
+        Alert.alert('Error', 'There was a problem retrieving food items');
+        console.error(error);
+      });
+
+    //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
+    //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
+  };
+
+  createFoodItem(foodItem) {
+    return (
+      <TouchableHighlight
+        onPress={()=>{}}
+        underlayColor='#dcdcdc'
+      >
+        <View>
+          <Image
+            style={styles.foodItem}
+            source={require('../images/tomato.png')}
+          />
+        </View>
+       </TouchableHighlight>
+    );
+  };
 
   render = () => {
-    const Fridge = () => wrapInFridge();
+    const Fridge = () => this.wrapInFridge();
 
     return (
       <Fridge />
     );
   };
 }
-
-function wrapInFridge() {
-    const Shelves = () => getShelves();
-
-    return (
-      <View style={styles.center}>
-        <ScrollView style={styles.scroll}>
-          <Text style={styles.subtitle}>Fridge!</Text>
-          <Shelves />
-        </ScrollView>
-      </View>
-
-    );
-}
-
-function getShelves() {
-  let allFoodItems = getAllFoodItems();
-
-  // Create items on shelf in groups of four
-  // Return/Display list of shelves
-
-  // Column
-  let shelves = [];
-  // Row
-  let shelf = [];
-  let numItems = 0;
-
-  // Traverse items in order
-  allFoodItems.forEach(function(food) {
-    let foodItem = createFoodItem(food);
-    shelf.push(foodItem);
-    numItems++;
-
-    // Row is filled or last row
-    if (numItems % 4 === 0 || numItems === allFoodItems.length) {
-      shelves.push(
-        <View style={styles.center}>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-            {shelf}
-          </View>
-          <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
-        </View>
-      );
-
-      // Reset to empty shelf
-      shelf = [];
-    }
-  });
-
-  return shelves;
-}
-
-function getAllFoodItems() {
-  // get all food items
-  /*
-  */
-  let allFoodItems;
-  fetch('http://localhost:3000/food', {method: 'GET'})
-    .then((json) => {
-      Alert.alert('Success!', 'Successfully retrieved all food items')
-      console.log(json.json());
-      //allFoodItems = json.payload();
-    })
-    .catch((error) => {
-      Alert.alert('Error', 'There was a problem retrieving food items');
-      console.error(error);
-    })
-
-  return allFoodItems;
-
-  //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
-  //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
-};
-
-function createFoodItem(foodItem) {
-  return (
-    <TouchableHighlight
-      onPress={()=>{}}
-      underlayColor='#dcdcdc'
-    >
-      <View>
-        <Image
-          style={styles.foodItem}
-          source={require('../images/tomato.png')}
-        />
-      </View>
-     </TouchableHighlight>
-  );
-};
 
 export default Fridge;
