@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 // import { sha256 } from 'react-native-sha256'
 
 const styles = StyleSheet.create({
@@ -96,6 +97,7 @@ class Add extends Component {
 
   // POST to localhost:3000
   submit () {
+    const navigation = useNavigation()
     console.debug(JSON.stringify({
       id: this.generateUniqueID(this.state.name, this.state.expDate),
       name: this.state.name,
@@ -114,6 +116,7 @@ class Add extends Component {
       })
     }).then((json) => {
       Alert.alert('Success!', 'Food item data saved correctly')
+      navigation.navigate('Fridge')
       // console.log(json)
     })
       .catch((error) => {
