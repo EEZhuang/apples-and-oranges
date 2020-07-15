@@ -114,6 +114,7 @@ class Add extends Component {
       })
     }).then((json) => {
       Alert.alert('Success!', 'Food item data saved correctly')
+      this.props.navigation.navigate('Fridge')
       // console.log(json)
     })
       .catch((error) => {

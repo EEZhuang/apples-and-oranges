@@ -58,7 +58,9 @@ const TabLayout = () => (
 
 const AddStackLayout = () => (
   <Stack.Navigator>
-    <Stack.Screen name='Add food item' component={Add} />
+    <Stack.Screen name='Add food item'>
+      {(props) => <Add {...props} navigation={props.navigation} />}
+    </Stack.Screen>
   </Stack.Navigator>
 );
 
