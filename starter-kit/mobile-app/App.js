@@ -6,9 +6,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import LoadingScreen from './src/screens/loading';
-import Home from './src/screens/home';
-import Chat from './src/screens/chat';
-import Map from './src/screens/map';
+import Fridge from './src/screens/fridge';
+import Add from './src/screens/addFoodItem';
+import Details from './src/screens/foodItemDetails';
+// import Chat from './src/screens/chat';
+// import Map from './src/screens/map';
 
 import { HomeIcon, ChatIcon, MapIcon } from './src/images/svg-icons';
 
@@ -28,25 +30,25 @@ const tabBarOptions = {
 const TabLayout = () => (
   <Tab.Navigator
     style={{paddingTop: 50}}
-    initialRouteName='Home'
+    initialRouteName='Fridge'
     tabBarOptions={tabBarOptions} >
     <Tab.Screen
-      name='Home'
-      component={Home}
+      name='Fridge'
+      component={Fridge}
       options={{
         tabBarIcon: ({color}) => (<HomeIcon fill={color}/>)
       }}
     />
     <Tab.Screen
-      name='Chat'
-      component={ChatStackLayout}
+      name='Add'
+      component={AddStackLayout}
       options={{
         tabBarIcon: ({color}) => (<ChatIcon fill={color} />)
       }}
     />
     <Tab.Screen
-      name='Map'
-      component={MapStackLayout}
+      name='Details'
+      component={DetailsStackLayout}
       options={{
         tabBarIcon: ({color}) => (<MapIcon fill={color} />)
       }}
@@ -54,15 +56,15 @@ const TabLayout = () => (
   </Tab.Navigator>
 );
 
-const ChatStackLayout = () => (
+const AddStackLayout = () => (
   <Stack.Navigator>
-    <Stack.Screen name='Ask a Question' component={Chat} />
+    <Stack.Screen name='Ask a Question' component={Add} />
   </Stack.Navigator>
 );
 
-const MapStackLayout = () => (
+const DetailsStackLayout = () => (
   <Stack.Navigator>
-    <Stack.Screen name='Locate Assistance' component={Map} />
+    <Stack.Screen name='Locate Assistance' component={Details} />
   </Stack.Navigator>
 );
 
