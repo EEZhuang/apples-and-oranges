@@ -118,7 +118,7 @@ class Details extends React.Component {
     }
   }
 
-  displayEditDeleteButton() {
+  displayEditDoneButton() {
     if (this.state.edit == true) {
       return (
         <TouchableOpacity onPress={state => this.setState({edit: false})}>
@@ -132,6 +132,10 @@ class Details extends React.Component {
         </TouchableOpacity>
       );
       }
+  }
+
+  deleteItem() {
+
   }
 
   render() {
@@ -150,8 +154,8 @@ class Details extends React.Component {
         </Text>
         {this.displayExpDate()}
         <View style={styles.buttonGroup}>
-          {this.displayEditDeleteButton()}
-          <TouchableOpacity onPress={() => {}}>
+          {this.displayEditDoneButton()}
+          <TouchableOpacity onPress={() => this.deleteItem()}>
             <Text style={styles.button}>Delete</Text>
           </TouchableOpacity>
         </View>
