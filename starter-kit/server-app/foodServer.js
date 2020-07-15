@@ -17,16 +17,17 @@ app.post('/food', (req, res) => {
     const foodInfo = require('./foodStore.json');
     const newInfo = req.body;
     foodInfo.push(newInfo);
-    var newJson = JSON.stringify(foodInfo)
+    foodInfo.sort((a, b) => new Date(a['exp-date']).getTime() - new Date(b['exp-date']).getTime());
+    var newJson = JSON.stringify(foodInfo);
     fs.writeFile('foodStore.json', newJson, 'utf8', () => {console.log('Added new food info.')});
-    res.send('Added a new food info.')
+    res.send('Added a new food info.');
 });
 
 const server = app.listen(
     port, () => {
         const host = server.address().address;
         const port = server.address().port;
-        console.log(`SolutionStarterKitDisastersServer listening at http://${host}:${port}`);
+        console.log(`Server listening at http://localhost:${port}`);
     }
 );
 
