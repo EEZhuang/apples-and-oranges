@@ -48,7 +48,7 @@ const TabLayout = () => (
     />
     <Tab.Screen
       name='Details'
-      component={DetailsStackLayout}
+      component={Details}
       options={{
         tabBarIcon: ({color}) => (<MapIcon fill={color} />)
       }}
@@ -59,12 +59,6 @@ const TabLayout = () => (
 const AddStackLayout = () => (
   <Stack.Navigator>
     <Stack.Screen name='Add food item' component={Add} />
-  </Stack.Navigator>
-);
-
-const DetailsStackLayout = () => (
-  <Stack.Navigator>
-    <Stack.Screen name='Locate Assistance' component={Details} />
   </Stack.Navigator>
 );
 
