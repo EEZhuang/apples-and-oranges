@@ -22,6 +22,22 @@ const styles = StyleSheet.create({
     width:'50%',
     resizeMode: 'contain'
   },
+  image: {
+    alignSelf: 'flex-start',
+    height: '20%',
+    width:'50%',
+    resizeMode: 'contain'
+  },
+  foodItem: {
+    alignSelf: 'flex-start',
+    /*
+    height: '50%',
+    width: '50%',
+    */
+    height: 70,
+    width: 70,
+    resizeMode: 'contain'
+  },
   title: {
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 36,
@@ -61,22 +77,35 @@ const styles = StyleSheet.create({
   }
 });
 
+// Get all food items for the user
+// Calculate how many shelves needed
+// Display shelves
+// Display food items on shelves
+// Display Progress Bar
+
 const Fridge = () => (
   <View style={styles.center}>
     <ScrollView style={styles.scroll}>
-      <Text style={styles.subtitle}>eat healthy!</Text>
-      <Text style={styles.title}>fridge :D</Text>
-      <Text style={styles.content}>
-        this is our MVP
-      </Text>
-      <View style={styles.buttonGroup}>
-        <TouchableOpacity onPress={() => Linking.openURL('https://developer.ibm.com/callforcode')}>
-          <Text style={styles.button}>Learn more</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('https://github.com/Call-for-Code/Solution-Starter-Kit-Disasters-2020')}>
-          <Text style={styles.button}>Get the code</Text>
-        </TouchableOpacity>
+      <Text style={styles.subtitle}>Fridge!</Text>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+        <Image
+          style={styles.foodItem}
+          source={require('../images/tomato.png')}
+        />
+        <Image
+          style={styles.foodItem}
+          source={require('../images/tomato.png')}
+        />
+        <Image
+          style={styles.foodItem}
+          source={require('../images/tomato.png')}
+        />
+        <Image
+          style={styles.foodItem}
+          source={require('../images/tomato.png')}
+        />
       </View>
+      <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
     </ScrollView>
   </View>
 );
