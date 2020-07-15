@@ -1,3 +1,6 @@
 node_modules
 .DS_Store
 pods
+starter-kit/mobile-app/ios/Pods/Manifest.lock
+starter-kit/mobile-app/ios/Podfile.lock
+starter-kit/.DS_Store
