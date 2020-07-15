@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking } from 'react-native';
+import { calcTimeDelta } from 'react-countdown'
+import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking, TextInput } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -8,7 +9,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 25,
+    paddingTop: 50
   },
   scroll: {
     paddingLeft: 20,
@@ -41,7 +46,6 @@ const styles = StyleSheet.create({
     fontFamily: 'IBMPlexSans-Light',
     color: '#323232',
     marginTop: 10,
-    marginBottom: 10,
     fontSize: 16
   },
   buttonGroup: {
@@ -58,27 +62,101 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign:'center',
     marginTop: 15
+  },
+  nameInput: {
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 36,
+    borderColor: '#e0e0e0',
+    borderWidth: 1,
+    height: 50
+  },
+  dateInput: {
+    fontFamily: 'IBMPlexSans-Light',
+    fontSize: 16,
+    borderColor: '#e0e0e0',
+    borderWidth: 1,
+    height: 50
   }
+
 });
 
-const Details = () => (
-  <View style={styles.center}>
-    <ScrollView style={styles.scroll}>
-      <Text style={styles.subtitle}>add an item</Text>
-      <Text style={styles.title}>fridge :D</Text>
-      <Text style={styles.content}>
-        this is our MVP
-      </Text>
-      <View style={styles.buttonGroup}>
-        <TouchableOpacity onPress={() => Linking.openURL('https://developer.ibm.com/callforcode')}>
-          <Text style={styles.button}>add</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('https://github.com/Call-for-Code/Solution-Starter-Kit-Disasters-2020')}>
-          <Text style={styles.button}>Get the code</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-  </View>
-);
+class Details extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      //json: null,
+      json: {"id":1,"name":"Carrot","exp-date":"2020-07-19"}, //for demo purposes
+      id: null,
+      name: null,
+      expDate: null
+    };
+  }
 
+  /*componentDidMount() {
+    this.setState({json: this.props.json});
+  }*/
+
+  calcDaysLeft(expDate) {
+    return calcTimeDelta(expDate).days;
+  }
+
+  displayName() {
+    if (this.state.edit == true) {
+      return (<TextInput onChangeText={text => {this.state.json.name = text.trim()}} defaultValue={this.state.json.name} style={styles.nameInput} />);
+    } else {
+      return (
+        <Text style={styles.title}>{this.state.json.name}</Text>
+      );
+    }
+  }
+
+  displayExpDate() {
+    if (this.state.edit == true) {
+      return (<TextInput onChangeText={text => {this.state.json["exp-date"] = text.trim();}} defaultValue={this.state.json['exp-date']} style={styles.dateInput} />);
+    } else {
+      return  <Text style={styles.content}>{this.state.json['exp-date']}</Text>;
+    }
+  }
+
+  displayEditDeleteButton() {
+    if (this.state.edit == true) {
+      return (
+        <TouchableOpacity onPress={state => this.setState({edit: false})}>
+          <Text style={styles.button}>Done</Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return(
+        <TouchableOpacity onPress={state => this.setState({edit: true})}>
+          <Text style={styles.button}>Edit</Text>
+        </TouchableOpacity>
+      );
+      }
+  }
+
+  render() {
+    return (
+      <View style={styles.center}>
+        <TouchableOpacity onPress={() => {}}>
+          <Text style={styles.button}>x</Text>
+        </TouchableOpacity>
+        <Text style={styles.subtitle}>{this.state.category}</Text>
+        {this.displayName()}
+        <Text style={styles.subtitle}>
+          {this.calcDaysLeft(this.state.json['exp-date'])} Days Left
+        </Text>
+        <Text style={styles.content}>
+          Expires on:
+        </Text>
+        {this.displayExpDate()}
+        <View style={styles.buttonGroup}>
+          {this.displayEditDeleteButton()}
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={styles.button}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
 export default Details;

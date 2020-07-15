@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+// import { sha256 } from 'react-native-sha256'
 
 const styles = StyleSheet.create({
   center: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
     backgroundColor: '#FFFFFF'
   },
   scroll: {
@@ -32,13 +31,13 @@ const styles = StyleSheet.create({
     fontFamily: 'IBMPlexSans-Light',
     fontSize: 16,
     color: '#323232',
-    textDecorationColor: '#D0E2FF',
+    textDecorationColor: '#e0e0e0',
     textDecorationLine: 'underline',
     paddingBottom: 5,
     paddingTop: 5
   },
   content: {
-    fontFamily: 'IBMPlexSans-Light',
+    fontFamily: 'IBMPlexSans-Medium',
     color: '#323232',
     marginTop: 10,
     marginBottom: 10,
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     flex: 1,
     paddingTop: 15,
-    width: 175
+
   },
   button: {
     backgroundColor: '#1062FE',
@@ -64,48 +63,94 @@ const styles = StyleSheet.create({
     paddingTop: 15
   },
   formInput: {
+    fontFamily: 'IBMPlexSans-Light',
     fontSize: 20,
     lineHeight: 30,
     minHeight: 30,
-    marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    borderColor: '#e0e0e0',
+    padding: 10,
+    borderWidth: 1
   }
 })
 
 class Add extends Component {
-  state = {
-    name: '',
-    exp: null,
+  constructor (props) {
+    super(props)
+    this.submit = this.submit.bind(this)
+
+    this.state = {
+      name: '',
+      expDate: null
+    }
+  }
+
+  generateUniqueID (name, expDate) {
+    const concat = name.concat(expDate)
+    return concat
+    /* console.log(concat)
+    sha256(concat).then(hash => {
+      return parseInt(hash)
+    }) */
   }
 
   // POST to localhost:3000
-  submit = () => {
-
+  submit () {
+    console.debug(JSON.stringify({
+      id: this.generateUniqueID(this.state.name, this.state.expDate),
+      name: this.state.name,
+      'exp-date': this.state.expDate
+    }))
+    return fetch('http://localhost:3000/food', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: this.generateUniqueID(this.state.name, this.state.expDate),
+        name: this.state.name,
+        'exp-date': this.state.expDate
+      })
+    }).then((json) => {
+      Alert.alert('Success!', 'Food item data saved correctly')
+      this.setState({
+        name: '',
+        expDate: null
+      })
+      this.props.navigation.navigate('Fridge')
+      // console.log(json)
+    })
+      .catch((error) => {
+        Alert.alert('Error', 'There was a problem saving food item data')
+        console.error(error)
+      })
   }
 
-  render = () => {
+  render () {
     return (
       <View style={styles.center}>
         <ScrollView style={styles.scroll}>
-          <Text style={styles.title}>Add food item</Text>
+          <Text style={styles.title}>Add food item 🍎</Text>
           <Text style={styles.subtitle}>Enter the details of your new grocery store find!</Text>
           <View style={styles.form}>
-            <TextInput 
+            <Text style={styles.content}>Item name</Text>
+            <TextInput
               style={styles.formInput}
-              placeholder="Item name"
-              label="Item name"
-              value={this.state.name} 
-              onChangeText={(text) => this.setState({name: text})}
+              placeholder="Apple"
+              value={this.state.name}
+              onChangeText={(text) => this.setState({ name: text })}
             />
-            <TextInput 
-              style={styles.formInput} 
-              placeholder="Expiration date (yyyy-mm-dd)" 
+            <Text style={styles.content}>Expiration date (yyyy-mm-dd)</Text>
+            <TextInput
+              style={styles.formInput}
+              placeholder="2020-07-15"
               value={this.state.expDate}
-              onChangeText={(text) => this.setState({exp: text})}
+              onChangeText={(text) => this.setState({ expDate: text })}
             />
           </View>
           <View style={styles.buttonGroup}>
-            <TouchableOpacity onPress={() => submit()}>
+            <TouchableOpacity onPress={() => this.submit()}>
               <Text style={styles.button}>Submit</Text>
             </TouchableOpacity>
           </View>
