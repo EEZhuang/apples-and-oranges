@@ -87,7 +87,6 @@ class Fridge extends Component {
     this.wrapInFridge = this.wrapInFridge.bind(this);
     this.getShelves = this.getShelves.bind(this);
     this.getAllFoodItems = this.getAllFoodItems.bind(this);
-    this.createFoodItem = this.createFoodItem.bind(this);
 
     this.state = {
       allFoodItems: []
@@ -120,7 +119,7 @@ class Fridge extends Component {
 
     // Traverse items in order
     allFoodItems.forEach(function(food) {
-      let foodItem = this.createFoodItem(food);
+      let foodItem = createFoodItem(food);
       shelf.push(foodItem);
       numItems++;
 
@@ -159,23 +158,7 @@ class Fridge extends Component {
 
     //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
     //return [{tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}, {tomato:"tomato"}];
-  };
-
-  createFoodItem(foodItem) {
-    return (
-      <TouchableHighlight
-        onPress={()=>{}}
-        underlayColor='#dcdcdc'
-      >
-        <View>
-          <Image
-            style={styles.foodItem}
-            source={require('../images/tomato.png')}
-          />
-        </View>
-       </TouchableHighlight>
-    );
-  };
+  }
 
   render = () => {
     const Fridge = () => this.wrapInFridge();
@@ -184,6 +167,22 @@ class Fridge extends Component {
       <Fridge />
     );
   };
+}
+
+function createFoodItem(foodItem) {
+  return (
+    <TouchableHighlight
+      onPress={()=>{}}
+      underlayColor='#dcdcdc'
+    >
+      <View>
+        <Image
+          style={styles.foodItem}
+          source={require('../images/tomato.png')}
+        />
+      </View>
+     </TouchableHighlight>
+  );
 }
 
 export default Fridge;
