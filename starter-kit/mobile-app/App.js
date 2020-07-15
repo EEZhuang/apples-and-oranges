@@ -58,7 +58,7 @@ const TabLayout = () => (
 
 const AddStackLayout = () => (
   <Stack.Navigator>
-    <Stack.Screen name='Ask a Question' component={Add} />
+    <Stack.Screen name='Add food item' component={Add} />
   </Stack.Navigator>
 );
 

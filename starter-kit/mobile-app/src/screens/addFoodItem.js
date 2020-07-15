@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { Component } from 'react'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const styles = StyleSheet.create({
   center: {
@@ -19,23 +19,23 @@ const styles = StyleSheet.create({
   image: {
     alignSelf: 'flex-start',
     height: '20%',
-    width:'50%',
+    width: '50%',
     resizeMode: 'contain'
   },
   title: {
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 36,
     color: '#323232',
-    paddingBottom: 15
+    paddingBottom: 5
   },
   subtitle: {
     fontFamily: 'IBMPlexSans-Light',
-    fontSize: 24,
+    fontSize: 16,
     color: '#323232',
     textDecorationColor: '#D0E2FF',
     textDecorationLine: 'underline',
     paddingBottom: 5,
-    paddingTop: 20
+    paddingTop: 5
   },
   content: {
     fontFamily: 'IBMPlexSans-Light',
@@ -56,29 +56,63 @@ const styles = StyleSheet.create({
     fontSize: 16,
     overflow: 'hidden',
     padding: 12,
-    textAlign:'center',
+    textAlign: 'center',
     marginTop: 15
+  },
+  form: {
+    flex: 1,
+    paddingTop: 15
+  },
+  formInput: {
+    fontSize: 20,
+    lineHeight: 30,
+    minHeight: 30,
+    marginTop: 10,
+    marginBottom: 10
   }
-});
+})
 
-const Add = () => (
-  <View style={styles.center}>
-    <ScrollView style={styles.scroll}>
-      <Text style={styles.subtitle}>add an item</Text>
-      <Text style={styles.title}>fridge :D</Text>
-      <Text style={styles.content}>
-        this is our MVP
-      </Text>
-      <View style={styles.buttonGroup}>
-        <TouchableOpacity onPress={() => Linking.openURL('https://developer.ibm.com/callforcode')}>
-          <Text style={styles.button}>add</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('https://github.com/Call-for-Code/Solution-Starter-Kit-Disasters-2020')}>
-          <Text style={styles.button}>Get the code</Text>
-        </TouchableOpacity>
+class Add extends Component {
+  state = {
+    name: '',
+    exp: null,
+  }
+
+  // POST to localhost:3000
+  submit = () => {
+
+  }
+
+  render = () => {
+    return (
+      <View style={styles.center}>
+        <ScrollView style={styles.scroll}>
+          <Text style={styles.title}>Add food item</Text>
+          <Text style={styles.subtitle}>Enter the details of your new grocery store find!</Text>
+          <View style={styles.form}>
+            <TextInput 
+              style={styles.formInput}
+              placeholder="Item name"
+              label="Item name"
+              value={this.state.name} 
+              onChangeText={(text) => this.setState({name: text})}
+            />
+            <TextInput 
+              style={styles.formInput} 
+              placeholder="Expiration date (yyyy-mm-dd)" 
+              value={this.state.expDate}
+              onChangeText={(text) => this.setState({exp: text})}
+            />
+          </View>
+          <View style={styles.buttonGroup}>
+            <TouchableOpacity onPress={() => submit()}>
+              <Text style={styles.button}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
-    </ScrollView>
-  </View>
-);
+    )
+  }
+}
 
-export default Add;
+export default Add
