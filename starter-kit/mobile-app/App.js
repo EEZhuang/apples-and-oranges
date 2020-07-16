@@ -42,17 +42,17 @@ const TabLayout = () => (
       }}
     />
     <Tab.Screen
-      name='Add'
-      component={AddStackLayout}
-      options={{
-        tabBarIcon: ({color}) => (<AddIcon fill={color} />)
-      }}
-    />
-    <Tab.Screen
       name='Details'
       component={Details}
       options={{
         tabBarIcon: ({color}) => (<DetailsIcon fill={color} />)
+      }}
+    />
+    <Tab.Screen
+      name='Add'
+      component={AddStackLayout}
+      options={{
+        tabBarIcon: ({color}) => (<AddIcon fill={color} />)
       }}
     />
     <Tab.Screen
