@@ -54,18 +54,18 @@ The Community page enables users to quickly offer items to neighbors and friends
 <img src="./images/neighborhood.png" alt="" width=248 height=538>
 
 ## Our Codebase
-`/[tempName]
-    /mobile-app
-        /src
-            /screens
-        /ios
-            /Pods
-        /android
-        /node_modules
-    /server-app
-        /foodServer.js
-        /foodStore.json
-        /node_modules`
+/[tempName]
+        /mobile-app
+                /src
+                        /screens
+                /ios
+                        /Pods
+                /android
+                /node_modules
+        /server-app
+                /foodServer.js
+                /foodStore.json
+                /node_modules
 
 ## How to Run
 
