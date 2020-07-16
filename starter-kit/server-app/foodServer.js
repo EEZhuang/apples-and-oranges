@@ -10,7 +10,8 @@ app.use(bodyParser.json());
 
 app.get('/food', (req, res) => {
     const foodInfo = require('./foodStore.json');
-    res.send(foodInfo);
+    //res.send(foodInfo);
+    res.send(JSON.stringify(foodInfo));
 });
 
 app.post('/food', (req, res) => {

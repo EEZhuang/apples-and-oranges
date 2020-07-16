@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -20,6 +20,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     height: '20%',
     width:'50%',
+    resizeMode: 'contain'
+  },
+  foodItem: {
+    alignSelf: 'flex-start',
+    /*
+    height: '50%',
+    width: '50%',
+    */
+    height: 70,
+    width: 70,
     resizeMode: 'contain'
   },
   title: {
@@ -58,27 +68,116 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign:'center',
     marginTop: 15
+  },
+  foodButton: {
+
   }
 });
 
-const Fridge = () => (
-  <View style={styles.center}>
-    <ScrollView style={styles.scroll}>
-      <Text style={styles.subtitle}>eat healthy!</Text>
-      <Text style={styles.title}>fridge :D</Text>
-      <Text style={styles.content}>
-        this is our MVP
-      </Text>
-      <View style={styles.buttonGroup}>
-        <TouchableOpacity onPress={() => Linking.openURL('https://developer.ibm.com/callforcode')}>
-          <Text style={styles.button}>Learn more</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('https://github.com/Call-for-Code/Solution-Starter-Kit-Disasters-2020')}>
-          <Text style={styles.button}>Get the code</Text>
-        </TouchableOpacity>
+// Get all food items for the user
+// Calculate how many shelves needed
+// Display shelves
+// Display food items on shelves
+// Display Progress Bar
+
+
+class Fridge extends Component {
+  constructor (props) {
+    super(props);
+    this.wrapInFridge = this.wrapInFridge.bind(this);
+    this.getShelves = this.getShelves.bind(this);
+
+    this.state = {
+      allFoodItems: []
+    };
+  }
+
+  componentDidMount() {
+    // get all food items
+    /*
+    */
+    fetch('http://localhost:3000/food', {method: 'GET'})
+      .then(res => res.json())
+      //.then(json => console.log(json))
+      //.then(json => allFoodItems = json)
+      .then(json => this.setState({ allFoodItems: json }))
+      .catch((error) => {
+        Alert.alert('Error', 'There was a problem retrieving food items');
+        console.error(error);
+      });
+  }
+
+  wrapInFridge() {
+      const Shelves = () => this.getShelves();
+
+      return (
+        <View style={styles.center}>
+          <ScrollView style={styles.scroll}>
+            <Text style={styles.subtitle}>Fridge!</Text>
+            <Shelves />
+          </ScrollView>
+        </View>
+
+      );
+  }
+
+  getShelves() {
+    let allFoodItems = this.state.allFoodItems;
+
+    // Column
+    let shelves = [];
+    // Row
+    let shelf = [];
+    let numItems = 0;
+
+    // Traverse items in order
+    allFoodItems.forEach(function(food) {
+      let foodItem = createFoodItem(food);
+      shelf.push(foodItem);
+      numItems++;
+
+      // Row is filled or last row
+      if (numItems % 4 === 0 || numItems === allFoodItems.length) {
+        shelves.push(
+          <View style={styles.center}>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+              {shelf}
+            </View>
+            <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
+          </View>
+        );
+
+        // Reset to empty shelf
+        shelf = [];
+      }
+    });
+
+    return shelves;
+  }
+
+  render = () => {
+    const Fridge = () => this.wrapInFridge();
+
+    return (
+      <Fridge />
+    );
+  };
+}
+
+function createFoodItem(foodItem) {
+  return (
+    <TouchableHighlight
+      onPress={()=>{}}
+      underlayColor='#dcdcdc'
+    >
+      <View>
+        <Image
+          style={styles.foodItem}
+          source={require('../images/tomato.png')}
+        />
       </View>
-    </ScrollView>
-  </View>
-);
+     </TouchableHighlight>
+  );
+}
 
 export default Fridge;
