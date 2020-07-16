@@ -36,16 +36,15 @@ const styles = StyleSheet.create({
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 36,
     color: '#323232',
-    paddingBottom: 15
+    paddingBottom: 10
   },
   subtitle: {
     fontFamily: 'IBMPlexSans-Light',
-    fontSize: 24,
+    fontSize: 16,
     color: '#323232',
     textDecorationColor: '#D0E2FF',
     textDecorationLine: 'underline',
-    paddingBottom: 5,
-    paddingTop: 20
+    paddingBottom: 10,
   },
   content: {
     fontFamily: 'IBMPlexSans-Light',
@@ -56,8 +55,7 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     flex: 1,
-    paddingTop: 15,
-    width: 175
+    marginBottom: 15,
   },
   button: {
     backgroundColor: '#1062FE',
@@ -90,13 +88,23 @@ class Fridge extends Component {
      });
   }
 
+  add() {
+    this.props.navigation.navigate('Add')
+  }
+
   wrapInFridge() {
       const Shelves = () => this.getShelves();
 
       return (
         <View style={styles.center}>
           <ScrollView style={styles.scroll}>
-            <Text style={styles.subtitle}>Fridge!</Text>
+          <Text style={styles.title}>Food in your fridge</Text>
+            <Text style={styles.subtitle}>You have {this.state.allFoodItems.length} items in your fridge!</Text>
+            <View style={styles.buttonGroup}>
+              <TouchableOpacity onPress={() => this.add()}>
+                <Text style={styles.button}>Went grocery shopping? Add more!</Text>
+              </TouchableOpacity>
+            </View>
             <Shelves />
           </ScrollView>
         </View>
