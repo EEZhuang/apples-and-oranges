@@ -121,7 +121,7 @@ class Details extends React.Component {
       }).then((json) => {
         Alert.alert('Success!', 'Food item data updated correctly')
         this.setState({json : {name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji}});
-        
+
       })
         .catch((error) => {
           Alert.alert('Error', 'There was a problem updating food item data')
@@ -223,11 +223,14 @@ class Details extends React.Component {
     return (
       <View style={styles.center}>
         <TouchableOpacity onPress={() => this.exit()}>
-          <Text style={styles.button}>x</Text>
+          <Text style={styles.button}>&lt;</Text>
         </TouchableOpacity>
         <Text style={styles.title}/>
-        {this.displayEmoji()}
-        {this.displayName()}
+        <View style={{flexDirection: 'row'}}>
+          {this.displayName()}
+          <View style={{width: 15, height: 70}}></View>
+          {this.displayEmoji()}
+        </View>
         <Text style={styles.subtitle}>
           {this.calcDaysLeft(this.state.expDate)} Days Left
         </Text>
