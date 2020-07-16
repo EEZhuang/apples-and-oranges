@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { calcTimeDelta } from 'react-countdown'
 import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Config from 'react-native-config';
 
 class Fridge extends Component {
   constructor (props) {
@@ -105,7 +106,7 @@ class Fridge extends Component {
 
   getAllFoodItems() {
       // get all food items
-    fetch('http://localhost:3000/food', {method: 'GET'})
+    fetch(Config.STARTER_KIT_SERVER_URL + '/food', {method: 'GET'})
     .then(res => res.json())
     .then(json => this.setState({ allFoodItems: json }))
     .catch((error) => {
