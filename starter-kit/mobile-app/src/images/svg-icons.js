@@ -72,3 +72,90 @@ export const MapIcon = (props) => {
     </Svg>
   );
 };
+
+export const AnalyticsIcon = (props) => {
+  const height = props.height || 28;
+  const width = props.width || 28;
+  const fill = props.fill || '#000';
+  const stroke = props.stroke || 'none';
+  const strokeWidth = props.strokeWidth || 0;
+
+  return (
+    <Svg
+      fill="currentColor"
+      width={32}
+      height={32}
+      viewBox="0 0 32 32"
+      aria-hidden="true"
+      {...props}
+    >
+      <Path d="M24 21h2v5h-2zm-4-5h2v10h-2zm-9 10a5.006 5.006 0 01-5-5h2a3 3 0 103-3v-2a5 5 0 010 10z" />
+      <Path d="M28 2H4a2.002 2.002 0 00-2 2v24a2.002 2.002 0 002 2h24a2.003 2.003 0 002-2V4a2.002 2.002 0 00-2-2zm0 9H14V4h14zM12 4v7H4V4zM4 28V13h24l.002 15z" />
+    </Svg>
+  );
+};
+
+export const DetailsIcon = (props) => {
+  const height = props.height || 28;
+  const width = props.width || 28;
+  const fill = props.fill || '#000';
+  const stroke = props.stroke || 'none';
+  const strokeWidth = props.strokeWidth || 0;
+
+  return (
+    <Svg
+      fill="currentColor"
+      width={32}
+      height={32}
+      viewBox="0 0 32 32"
+      aria-hidden="true"
+      {...props}
+    >
+      <Path d="M30.94 15.66A16.69 16.69 0 0016 5 16.69 16.69 0 001.06 15.66a1 1 0 000 .68A16.69 16.69 0 0016 27a16.69 16.69 0 0014.94-10.66 1 1 0 000-.68zM16 25c-5.3 0-10.9-3.93-12.93-9C5.1 10.93 10.7 7 16 7s10.9 3.93 12.93 9C26.9 21.07 21.3 25 16 25z" />
+      <Path d="M16 10a6 6 0 106 6 6 6 0 00-6-6zm0 10a4 4 0 114-4 4 4 0 01-4 4z" />
+    </Svg>
+  );
+};
+
+export const FridgeIcon = (props) => {
+  const height = props.height || 28;
+  const width = props.width || 28;
+  const fill = props.fill || '#000';
+  const stroke = props.stroke || 'none';
+  const strokeWidth = props.strokeWidth || 0;
+
+  return (
+    <Svg
+      fill="currentColor"
+      width={32}
+      height={32}
+      viewBox="0 0 32 32"
+      aria-hidden="true"
+      {...props}
+    >
+      <Path d="M13 30a5.006 5.006 0 01-5-5h2a3 3 0 103-3H4v-2h9a5 5 0 010 10z" />
+      <Path d="M25 25a5.006 5.006 0 01-5-5h2a3 3 0 103-3H2v-2h23a5 5 0 010 10zm-4-13H6v-2h15a3 3 0 10-3-3h-2a5 5 0 115 5z" />
+    </Svg>
+  );
+};
+
+export const CommunityIcon = (props) => {
+  const height = props.height || 28;
+  const width = props.width || 28;
+  const fill = props.fill || '#000';
+  const stroke = props.stroke || 'none';
+  const strokeWidth = props.strokeWidth || 0;
+
+  return (
+    <Svg
+      fill="currentColor"
+      width={32}
+      height={32}
+      viewBox="0 0 32 32"
+      aria-hidden="true"
+      {...props}
+    >
+      <Path d="M26 14h-2v2h2a3.003 3.003 0 013 3v4h2v-4a5.006 5.006 0 00-5-5zM24 4a3 3 0 11-3 3 3 3 0 013-3m0-2a5 5 0 105 5 5 5 0 00-5-5zm-1 28h-2v-2a3.003 3.003 0 00-3-3h-4a3.003 3.003 0 00-3 3v2H9v-2a5.006 5.006 0 015-5h4a5.006 5.006 0 015 5zm-7-17a3 3 0 11-3 3 3 3 0 013-3m0-2a5 5 0 105 5 5 5 0 00-5-5zm-8 3H6a5.006 5.006 0 00-5 5v4h2v-4a3.003 3.003 0 013-3h2zM8 4a3 3 0 11-3 3 3 3 0 013-3m0-2a5 5 0 105 5 5 5 0 00-5-5z" />
+    </Svg>
+  );
+};
