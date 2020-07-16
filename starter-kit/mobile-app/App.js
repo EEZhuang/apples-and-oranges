@@ -26,6 +26,7 @@ const tabBarOptions = {
   }
 };
 
+// Bottom navigation bar
 const TabLayout = () => (
   <Tab.Navigator
     style={{paddingTop: 50}}
@@ -63,6 +64,7 @@ const AddStackLayout = () => (
   </Stack.Navigator>
 );
 
+// Main framework for application
 const App = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 

@@ -16,12 +16,6 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     paddingTop: 75
   },
-  image: {
-    alignSelf: 'flex-start',
-    height: '20%',
-    width: '50%',
-    resizeMode: 'contain'
-  },
   title: {
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 36,
@@ -75,6 +69,9 @@ const styles = StyleSheet.create({
   }
 })
 
+/*
+ * Creates the add food item screen to allow users to track their food items
+ */
 class Add extends Component {
   constructor (props) {
     super(props)
@@ -115,6 +112,7 @@ class Add extends Component {
       })
   }
 
+  // Displays the item name, emoji, and expiration date input field
   render () {
     return (
       <View style={styles.center}>
