@@ -12,8 +12,7 @@ import Details from './src/screens/foodItemDetails';
 // import Chat from './src/screens/chat';
 // import Map from './src/screens/map';
 
-import { HomeIcon, ChatIcon, MapIcon } from './src/images/svg-icons';
-
+import { HomeIcon, AddIcon, ChatIcon, MapIcon } from './src/images/svg-icons';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +42,7 @@ const TabLayout = () => (
       name='Add'
       component={AddStackLayout}
       options={{
-        tabBarIcon: ({color}) => (<ChatIcon fill={color} />)
+        tabBarIcon: ({color}) => (<AddIcon fill={color} />)
       }}
     />
     <Tab.Screen
