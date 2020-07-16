@@ -7,6 +7,7 @@ import Config from 'react-native-config';
 
 const styles = StyleSheet.create({
   center: {
+    paddingTop: 50,
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF'

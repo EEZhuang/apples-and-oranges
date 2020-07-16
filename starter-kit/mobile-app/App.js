@@ -33,19 +33,13 @@ const TabLayout = () => (
   <Tab.Navigator
     style={{paddingTop: 50}}
     initialRouteName='Fridge'
-    tabBarOptions={tabBarOptions} >
+    tabBarOptions={tabBarOptions}
+  >
     <Tab.Screen
       name='Fridge'
-      component={Fridge}
+      component={FridgeStackLayout}
       options={{
         tabBarIcon: ({color}) => (<FridgeIcon fill={color}/>)
-      }}
-    />
-    <Tab.Screen
-      name='Details'
-      component={Details}
-      options={{
-        tabBarIcon: ({color}) => (<DetailsIcon fill={color} />)
       }}
     />
     <Tab.Screen
@@ -72,8 +66,27 @@ const TabLayout = () => (
   </Tab.Navigator>
 );
 
+const FridgeStackLayout = () => (
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false
+    }}
+  >
+    <Stack.Screen name='Fridge'>
+      {(props) => <Fridge {...props} navigation={props.navigation} />}
+    </Stack.Screen>
+    <Stack.Screen name='Details'>
+      {(props) => <Details {...props} navigation={props.navigation} />}
+    </Stack.Screen>
+  </Stack.Navigator>
+);
+
 const AddStackLayout = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false
+    }}
+  >
     <Stack.Screen name='Add food item'>
       {(props) => <Add {...props} navigation={props.navigation} />}
     </Stack.Screen>
