@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     width: 175
   },
   button: {
-    backgroundColor: '#1062FE',
+    backgroundColor: '#056608',
     color: '#FFFFFF',
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 16,
@@ -105,7 +105,7 @@ class Details extends React.Component {
       },
       body: JSON.stringify([this.state.json, {name: this.state.name, 'exp-date': this.state.expDate}])
       }).then((json) => {
-        Alert.alert('Success!', 'Food item data updated correctly') 
+        Alert.alert('Success!', 'Food item data updated correctly')
         this.setState({json : {name: this.state.name, 'exp-date': this.state.expDate}});
       })
         .catch((error) => {
