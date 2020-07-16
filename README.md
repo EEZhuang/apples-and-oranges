@@ -16,6 +16,10 @@
 3. [Our Codebase](#our-codebase)
 4. [How to Run](#how-to-run)
 
+## Video 
+
+Learn more about our project here(https://youtu.be/BTWsBLcq9Wg)!
+
 ## The Problem
 
 ### The Bigger Picture
