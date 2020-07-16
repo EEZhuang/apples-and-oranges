@@ -18,7 +18,7 @@
 
 ## Video 
 
-Learn more about our project here(https://youtu.be/BTWsBLcq9Wg)!
+Learn more about our project [here](https://youtu.be/BTWsBLcq9Wg)!
 
 ## The Problem
 
