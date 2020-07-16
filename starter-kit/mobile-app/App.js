@@ -13,7 +13,7 @@ import Analytics from './src/screens/analytics'
 // import Chat from './src/screens/chat';
 // import Map from './src/screens/map';
 
-import { HomeIcon, AddIcon, ChatIcon, MapIcon } from './src/images/svg-icons';
+import { HomeIcon, AddIcon, ChatIcon, MapIcon, AnalyticsIcon, DetailsIcon, CommunityIcon, FridgeIcon } from './src/images/svg-icons';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -37,7 +37,7 @@ const TabLayout = () => (
       name='Fridge'
       component={Fridge}
       options={{
-        tabBarIcon: ({color}) => (<HomeIcon fill={color}/>)
+        tabBarIcon: ({color}) => (<FridgeIcon fill={color}/>)
       }}
     />
     <Tab.Screen
@@ -51,14 +51,14 @@ const TabLayout = () => (
       name='Details'
       component={Details}
       options={{
-        tabBarIcon: ({color}) => (<MapIcon fill={color} />)
+        tabBarIcon: ({color}) => (<DetailsIcon fill={color} />)
       }}
     />
     <Tab.Screen
       name='Analytics'
       component={Analytics}
       options={{
-        tabBarIcon: ({color}) => (<MapIcon fill={color} />)
+        tabBarIcon: ({color}) => (<AnalyticsIcon fill={color} />)
       }}
     />
   </Tab.Navigator>
