@@ -9,7 +9,8 @@ import LoadingScreen from './src/screens/loading';
 import Fridge from './src/screens/fridge';
 import Add from './src/screens/addFoodItem';
 import Details from './src/screens/foodItemDetails';
-import Analytics from './src/screens/analytics'
+import Analytics from './src/screens/analytics';
+import Neighborhood from './src/screens/neighborhood';
 // import Chat from './src/screens/chat';
 // import Map from './src/screens/map';
 
@@ -59,6 +60,13 @@ const TabLayout = () => (
       component={Analytics}
       options={{
         tabBarIcon: ({color}) => (<MapIcon fill={color} />)
+      }}
+    />
+    <Tab.Screen
+      name='Neighborhood'
+      component={Neighborhood}
+      options={{
+        tabBarIcon: ({color}) => (<HomeIcon fill={color} />)
       }}
     />
   </Tab.Navigator>
