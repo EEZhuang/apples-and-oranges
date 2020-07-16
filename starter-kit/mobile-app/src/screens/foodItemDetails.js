@@ -85,33 +85,62 @@ class Details extends React.Component {
     super(props);
     this.state = {
       //json: null,
-      json: {"name":"Carrot","exp-date":"2020-08-19"} //for demo purposes
+      json: {"name":"Carrot","exp-date":"2020-08-19"}, //for demo purposes
+      name: "Carrot",
+      expDate: "2020-08-19",
+      edit: false
     };
   }
 
   /*componentDidMount() {
-    this.setState({json: this.props.json});
+    this.setState({json: this.props.json, name: this.props.json.name, expDate: this.props.json.expDate});
   }*/
+
+  updateJSON() {
+    return fetch('http://localhost:3000/update', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify([this.state.json, {name: this.state.name, 'exp-date': this.state.expDate}])
+      }).then((json) => {
+        Alert.alert('Success!', 'Food item data updated correctly') 
+        this.setState({json : {name: this.state.name, 'exp-date': this.state.expDate}});
+      })
+        .catch((error) => {
+          Alert.alert('Error', 'There was a problem updating food item data')
+          console.error(error)
+      })
+  }
 
   calcDaysLeft(expDate) {
     return calcTimeDelta(expDate).days;
   }
 
+  updateName(text) {
+    this.setState({name: text.trim()});
+  }
+
+  updateExpDate(text) {
+    this.setState({expDate: text.trim()});
+  }
+
   displayName() {
     if (this.state.edit == true) {
-      return (<TextInput onChangeText={text => {this.state.json.name = text.trim()}} defaultValue={this.state.json.name} style={styles.nameInput} />);
+      return (<TextInput onChangeText={text => this.updateName(text)} defaultValue={this.state.name} style={styles.nameInput} />);
     } else {
       return (
-        <Text style={styles.title}>{this.state.json.name}</Text>
+        <Text style={styles.title}>{this.state.name}</Text>
       );
     }
   }
 
   displayExpDate() {
     if (this.state.edit == true) {
-      return (<TextInput onChangeText={text => {this.state.json["exp-date"] = text.trim();}} defaultValue={this.state.json['exp-date']} style={styles.dateInput} />);
+      return (<TextInput onChangeText={text => this.updateExpDate(text)} defaultValue={this.state.expDate} style={styles.dateInput} />);
     } else {
-      return  <Text style={styles.content}>{this.state.json['exp-date']}</Text>;
+      return  <Text style={styles.content}>{this.state.expDate}</Text>;
     }
   }
 
@@ -123,12 +152,15 @@ class Details extends React.Component {
         </TouchableOpacity>
       );
     } else {
+      if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate})) {
+        this.updateJSON();
+      }
       return(
         <TouchableOpacity onPress={state => this.setState({edit: true})}>
           <Text style={styles.button}>Edit</Text>
         </TouchableOpacity>
       );
-      }
+    }
   }
 
   deleteItem() {
@@ -148,7 +180,7 @@ class Details extends React.Component {
       .catch((error) => {
         Alert.alert('Error', 'There was a problem deleting food item data')
         console.error(error)
-      })
+    })
   }
 
   render() {
@@ -160,7 +192,7 @@ class Details extends React.Component {
         <Text style={styles.subtitle}>{this.state.category}</Text>
         {this.displayName()}
         <Text style={styles.subtitle}>
-          {this.calcDaysLeft(this.state.json['exp-date'])} Days Left
+          {this.calcDaysLeft(this.state.expDate)} Days Left
         </Text>
         <Text style={styles.content}>
           Expires on:
