@@ -60,6 +60,7 @@ The Community page enables users to quickly offer items to neighbors and friends
 <img src="./images/neighborhood.png" alt="" width=248 height=538>
 
 ## Our Codebase
+```
 /apples-and-oranges
   \____ /mobile-app
           \____ /src
@@ -72,6 +73,7 @@ The Community page enables users to quickly offer items to neighbors and friends
           \____ /foodServer.js
           \____ /foodStore.json
           \____ /node_modules
+```
 
 ## How to Run
 
