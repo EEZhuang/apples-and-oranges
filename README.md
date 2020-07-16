@@ -2,7 +2,8 @@
 
 <img src="./images/logo.png" alt="" width=200 height=200>
 
-## Authors (alphabetical order by last name; equal contribution)
+## Authors
+(alphabetical order by last name; equal contribution)
 * Justin Chen
 * Julia Guo
 * Jian Huang
