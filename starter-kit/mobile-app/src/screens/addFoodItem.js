@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { emojify } from 'react-emojione'
 // import { sha256 } from 'react-native-sha256'
 
 const styles = StyleSheet.create({
@@ -126,7 +127,14 @@ class Add extends Component {
               style={styles.formInput}
               placeholder="Apple"
               value={this.state.name}
-              onChangeText={(text) => this.setState({ name: text })}
+              onChangeText={(text) => this.setState({ name: text})}
+              onBlur={() => {
+                const name = this.state.name.toLowerCase();
+                const emoji = emojify(':' + name + ':', {output: 'unicode'})
+                if (emoji[0] !== ':') {
+                  this.setState({emoji: emoji})
+                }
+              }}
             />
             <Text style={styles.content}>Display emoji</Text>
             <TextInput

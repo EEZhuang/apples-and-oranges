@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { calcTimeDelta } from 'react-countdown'
 import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -31,14 +32,14 @@ class Fridge extends Component {
       return (
         <View style={styles.center}>
           <ScrollView style={styles.scroll}>
-          <Text style={styles.title}>Food in your fridge</Text>
+          <Text style={styles.title}>Food in your fridge 🍳</Text>
             <Text style={styles.subtitle}>You have {this.state.allFoodItems.length} items in your fridge!</Text>
-            <View style={styles.buttonGroup}>
+            <Shelves />
+            {/* <View style={styles.buttonGroup}>
               <TouchableOpacity onPress={() => this.add()}>
                 <Text style={styles.button}>Went grocery shopping? Add more!</Text>
               </TouchableOpacity>
-            </View>
-            <Shelves />
+      </View> */}
           </ScrollView>
         </View>
 
@@ -58,13 +59,17 @@ class Fridge extends Component {
     let i = 0;
     for (i; i < allFoodItems.length; i++) {
       let food = allFoodItems[i];
+      let timeLeft = calcTimeDelta(food["exp-date"]).days;
+      let key = food['name'].concat(food['exp-date']);
       let foodItem =
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate('Details', { json: food })}
           underlayColor='#dcdcdc'
+          key={key}
         >
           <View>
-            <Text style={{fontSize:50, alignItems:'center', marginBottom:10}}>{food.emoji}</Text>
+            <Text style={{fontSize:50, alignItems:'center'}}>{food.emoji}</Text>
+            <View style={styles.progressBar}><View style={{backgroundColor: '#056608', height: 5, zIndex: 1, width: 55 * timeLeft/20, maxWidth: 55}}></View></View>
           </View>
          </TouchableHighlight>
       shelf.push(foodItem);
@@ -73,17 +78,18 @@ class Fridge extends Component {
       // If row is filled or last row
       if (numItems % 4 === 0 || numItems === allFoodItems.length) {
         shelves.push(
-          <View style={styles.center}>
+          <View key={i} style={styles.center}>
             <View style={{width: 375, height: 20}}/>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-              <View style={{width: 30, height: 65}}></View>
-              <View style={{width: 60, height: 65}}>{shelf[0]}</View>
-              <View style={{width: 30, height: 65}}></View>
-              <View style={{width: 60, height: 65}}>{shelf[1]}</View>
-              <View style={{width: 30, height: 65}}></View>
-              <View style={{width: 60, height: 65}}>{shelf[2]}</View>
-              <View style={{width: 30, height: 65}}></View>
-              <View style={{width: 60, height: 65}}>{shelf[3]}</View>
+              <View style={{width: 30, height: 70}}></View>
+              <View style={{width: 60, height: 70}}>{shelf[0]}</View>
+              <View style={{width: 30, height: 70}}></View>
+              <View style={{width: 60, height: 70}}>{shelf[1]}</View>
+              <View style={{width: 30, height: 70}}></View>
+              <View style={{width: 60, height: 70}}>{shelf[2]}</View>
+              <View style={{width: 30, height: 70}}></View>
+              <View style={{width: 60, height: 70}}>{shelf[3]}</View>
+              <View style={{width: 30, height: 70}}></View>
             </View>
             <View style={{width: 375, height: 10, backgroundColor: 'powderblue'}}/>
           </View>
@@ -170,7 +176,7 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     flex: 1,
-    marginBottom: 15,
+    marginTop: 60,
   },
   button: {
     backgroundColor: '#056608',
@@ -180,7 +186,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     padding: 12,
     textAlign:'center',
-    marginTop: 15
+    marginTop: 15,
+  },
+  progressBar: {
+    backgroundColor: 'red',
+    width: 55,
+    height: 5,
   }
 });
 
