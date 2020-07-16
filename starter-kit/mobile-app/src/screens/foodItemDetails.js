@@ -91,6 +91,7 @@ class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      update: false,
       json: null,
       name: null,
       expDate: null,
@@ -104,7 +105,7 @@ class Details extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (JSON.stringify(this.props.route.params.json) != JSON.stringify(this.state.json)) {
+    if ((JSON.stringify(this.props.route.params.json) != JSON.stringify(this.state.json)) && this.state.update == false) {
       this.setState({json: this.props.route.params.json, name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
     }
   }
@@ -120,10 +121,10 @@ class Details extends React.Component {
       }).then((json) => {
         Alert.alert('Success!', 'Food item data updated correctly')
         this.setState({json : {name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji}});
+
       })
         .catch((error) => {
           Alert.alert('Error', 'There was a problem updating food item data')
-          console.error(error)
       })
   }
 
@@ -171,6 +172,7 @@ class Details extends React.Component {
 
   done() {
     if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
+      this.setState({update: true})
       this.updateJSON();
     }
     this.setState({edit: false});
@@ -212,10 +214,15 @@ class Details extends React.Component {
     })
   }
 
+  exit() {
+    this.setState({update: false});
+    this.props.navigation.navigate('Fridge')
+  }
+
   render() {
     return (
       <View style={styles.center}>
-        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Fridge')}}>
+        <TouchableOpacity onPress={() => this.exit()}>
           <Text style={styles.button}>&lt;</Text>
         </TouchableOpacity>
         <Text style={styles.title}/>
