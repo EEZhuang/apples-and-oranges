@@ -4,6 +4,9 @@ import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Bu
 import { ScrollView } from 'react-native-gesture-handler';
 import Config from 'react-native-config';
 
+/*
+ * Creates a display of all your fridge items sorted based on expiration date
+ */
 class Fridge extends Component {
   constructor (props) {
     super(props);
@@ -11,11 +14,13 @@ class Fridge extends Component {
     this.getShelves = this.getShelves.bind(this);
     this.getAllFoodItems = this.getAllFoodItems.bind(this);
 
+    // All food items in your fridge
     this.state = {
       allFoodItems: []
     };
   }
 
+  // Checks if fridge screen comes back into focus to rerender
   componentDidMount() {
     this.getAllFoodItems();
     this._navListener = this.props.navigation.addListener('focus', () => {
@@ -23,10 +28,12 @@ class Fridge extends Component {
      });
   }
 
+  // Takes user to add item screen
   add() {
     this.props.navigation.navigate('Add')
   }
 
+  // Wraps the shelves in the external fridge view
   wrapInFridge() {
       const Shelves = () => this.getShelves();
 
@@ -47,10 +54,11 @@ class Fridge extends Component {
       );
   }
 
+  // Puts all food items on shelves
   getShelves() {
     let allFoodItems = this.state.allFoodItems;
 
-    // Column
+    // Column mimics fridge
     let shelves = [];
     // Row
     let shelf = [];
@@ -76,7 +84,7 @@ class Fridge extends Component {
       shelf.push(foodItem);
       numItems++;
 
-      // If row is filled or last row
+      // If row is filled or last row, add shelf to shelves
       if (numItems % 4 === 0 || numItems === allFoodItems.length) {
         shelves.push(
           <View key={i} style={styles.center}>
@@ -104,6 +112,7 @@ class Fridge extends Component {
     return shelves;
   }
 
+  // gets all food items for user
   getAllFoodItems() {
       // get all food items
     fetch(Config.STARTER_KIT_SERVER_URL + '/food', {method: 'GET'})
@@ -125,34 +134,11 @@ class Fridge extends Component {
 }
 
 const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: '#FFFFFF'
-  },
   scroll: {
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 25,
     paddingTop: 75
-  },
-  image: {
-    alignSelf: 'flex-start',
-    height: '20%',
-    width:'50%',
-    resizeMode: 'contain'
-  },
-  foodItem: {
-    alignSelf: 'flex-start',
-    /*
-    height: '50%',
-    width: '50%',
-    */
-    height: 70,
-    width: 70,
-    resizeMode: 'contain'
   },
   title: {
     fontFamily: 'IBMPlexSans-Medium',
@@ -167,17 +153,6 @@ const styles = StyleSheet.create({
     textDecorationColor: '#D0E2FF',
     textDecorationLine: 'underline',
     paddingBottom: 10,
-  },
-  content: {
-    fontFamily: 'IBMPlexSans-Light',
-    color: '#323232',
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 16
-  },
-  buttonGroup: {
-    flex: 1,
-    marginTop: 60,
   },
   button: {
     backgroundColor: '#056608',

@@ -16,18 +16,6 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     paddingTop: 50
   },
-  scroll: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 25,
-    paddingTop: 75
-  },
-  image: {
-    alignSelf: 'flex-start',
-    height: '20%',
-    width:'50%',
-    resizeMode: 'contain'
-  },
   title: {
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 36,
@@ -88,6 +76,9 @@ const styles = StyleSheet.create({
   }
 });
 
+/*
+ * The details page lists all information about the food item like the expiration date
+ */
 class Details extends React.Component {
   constructor(props) {
     super(props);
@@ -101,16 +92,19 @@ class Details extends React.Component {
     };
   }
 
+  // Sets state when the component is created
   componentDidMount() {
     this.setState({json: this.props.route.params.json, name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
   }
 
+  // Sets state if the component updates
   componentDidUpdate(prevProps) {
     if ((JSON.stringify(this.props.route.params.json) != JSON.stringify(this.state.json)) && this.state.update == false) {
       this.setState({json: this.props.route.params.json, name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
     }
   }
 
+  // Updates the item info when necessary
   updateJSON() {
     return fetch(Config.STARTER_KIT_SERVER_URL + '/update', {
       method: 'POST',
@@ -129,22 +123,27 @@ class Details extends React.Component {
       })
   }
 
+  // Calculate number of days until expiration
   calcDaysLeft(expDate) {
     return calcTimeDelta(expDate).days;
   }
 
+  // Updates the name of the item
   updateName(text) {
     this.setState({name: text.trim()});
   }
 
+  // Updates the expiration date of the item
   updateExpDate(text) {
     this.setState({expDate: text.trim()});
   }
 
+  // Updates the emoji for the item
   updateEmoji(text) {
     this.setState({emoji: text.trim()})
   }
 
+  // Displays the name of the food item
   displayName() {
     if (this.state.edit == true) {
       return (<TextInput onChangeText={text => this.updateName(text)} defaultValue={this.state.name} style={styles.nameInput} />);
@@ -155,6 +154,7 @@ class Details extends React.Component {
     }
   }
 
+  // Displays the emoji of the food item
   displayEmoji() {
     if (this.state.edit == true) {
       return (<TextInput onChangeText={text => this.updateEmoji(text)} defaultValue={this.state.emoji} style={styles.emojiInput} />);
@@ -163,6 +163,7 @@ class Details extends React.Component {
     }
   }
 
+  // Displays the expiration date of the food item
   displayExpDate() {
     if (this.state.edit == true) {
       return (<TextInput onChangeText={text => this.updateExpDate(text)} defaultValue={this.state.expDate} style={styles.dateInput} />);
@@ -171,6 +172,7 @@ class Details extends React.Component {
     }
   }
 
+  // Submits any changes to the food item and sets update to true
   done() {
     if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
       this.setState({update: true})
@@ -179,6 +181,7 @@ class Details extends React.Component {
     this.setState({edit: false});
   }
 
+  // Displays the edit button. When pressed, allows user to edit food item info
   displayEditDoneButton() {
     if (this.state.edit == true) {
       return (
