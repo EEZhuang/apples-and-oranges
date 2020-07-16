@@ -2,73 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: '#FFFFFF'
-  },
-  scroll: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 25,
-    paddingTop: 75
-  },
-  image: {
-    alignSelf: 'flex-start',
-    height: '20%',
-    width:'50%',
-    resizeMode: 'contain'
-  },
-  foodItem: {
-    alignSelf: 'flex-start',
-    /*
-    height: '50%',
-    width: '50%',
-    */
-    height: 70,
-    width: 70,
-    resizeMode: 'contain'
-  },
-  title: {
-    fontFamily: 'IBMPlexSans-Medium',
-    fontSize: 36,
-    color: '#323232',
-    paddingBottom: 10
-  },
-  subtitle: {
-    fontFamily: 'IBMPlexSans-Light',
-    fontSize: 16,
-    color: '#323232',
-    textDecorationColor: '#D0E2FF',
-    textDecorationLine: 'underline',
-    paddingBottom: 10,
-  },
-  content: {
-    fontFamily: 'IBMPlexSans-Light',
-    color: '#323232',
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 16
-  },
-  buttonGroup: {
-    flex: 1,
-    marginBottom: 15,
-  },
-  button: {
-    backgroundColor: '#1062FE',
-    color: '#FFFFFF',
-    fontFamily: 'IBMPlexSans-Medium',
-    fontSize: 16,
-    overflow: 'hidden',
-    padding: 12,
-    textAlign:'center',
-    marginTop: 15
-  }
-});
-
 class Fridge extends Component {
   constructor (props) {
     super(props);
@@ -131,21 +64,28 @@ class Fridge extends Component {
           underlayColor='#dcdcdc'
         >
           <View>
-            <Text style={{fontSize:50}}>o</Text>
-            <Text style={{fontSize:50}}>{food.emoji}</Text>
+            <Text style={{fontSize:50, alignItems:'center', marginBottom:10}}>{food.emoji}</Text>
           </View>
          </TouchableHighlight>
       shelf.push(foodItem);
       numItems++;
 
-      // Row is filled or last row
+      // If row is filled or last row
       if (numItems % 4 === 0 || numItems === allFoodItems.length) {
         shelves.push(
           <View style={styles.center}>
+            <View style={{width: 375, height: 20}}/>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-              {shelf}
+              <View style={{width: 30, height: 65}}></View>
+              <View style={{width: 60, height: 65}}>{shelf[0]}</View>
+              <View style={{width: 30, height: 65}}></View>
+              <View style={{width: 60, height: 65}}>{shelf[1]}</View>
+              <View style={{width: 30, height: 65}}></View>
+              <View style={{width: 60, height: 65}}>{shelf[2]}</View>
+              <View style={{width: 30, height: 65}}></View>
+              <View style={{width: 60, height: 65}}>{shelf[3]}</View>
             </View>
-            <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
+            <View style={{width: 375, height: 10, backgroundColor: 'powderblue'}}/>
           </View>
         );
 
@@ -159,12 +99,8 @@ class Fridge extends Component {
 
   getAllFoodItems() {
       // get all food items
-      /*
-      */
     fetch('http://localhost:3000/food', {method: 'GET'})
     .then(res => res.json())
-    //.then(json => console.log(json))
-    //.then(json => allFoodItems = json)
     .then(json => this.setState({ allFoodItems: json }))
     .catch((error) => {
       Alert.alert('Error', 'There was a problem retrieving food items');
@@ -180,5 +116,72 @@ class Fridge extends Component {
     );
   };
 }
+
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: '#FFFFFF'
+  },
+  scroll: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 25,
+    paddingTop: 75
+  },
+  image: {
+    alignSelf: 'flex-start',
+    height: '20%',
+    width:'50%',
+    resizeMode: 'contain'
+  },
+  foodItem: {
+    alignSelf: 'flex-start',
+    /*
+    height: '50%',
+    width: '50%',
+    */
+    height: 70,
+    width: 70,
+    resizeMode: 'contain'
+  },
+  title: {
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 36,
+    color: '#323232',
+    paddingBottom: 10
+  },
+  subtitle: {
+    fontFamily: 'IBMPlexSans-Light',
+    fontSize: 16,
+    color: '#323232',
+    textDecorationColor: '#D0E2FF',
+    textDecorationLine: 'underline',
+    paddingBottom: 10,
+  },
+  content: {
+    fontFamily: 'IBMPlexSans-Light',
+    color: '#323232',
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 16
+  },
+  buttonGroup: {
+    flex: 1,
+    marginBottom: 15,
+  },
+  button: {
+    backgroundColor: '#056608',
+    color: '#FFFFFF',
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 16,
+    overflow: 'hidden',
+    padding: 12,
+    textAlign:'center',
+    marginTop: 15
+  }
+});
 
 export default Fridge;
