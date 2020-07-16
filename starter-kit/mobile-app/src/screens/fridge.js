@@ -99,7 +99,8 @@ class Fridge extends Component {
       return (
         <View style={styles.center}>
           <ScrollView style={styles.scroll}>
-            <Text style={styles.subtitle}>Fridge!</Text>
+          <Text style={styles.title}>Food in your fridge</Text>
+            <Text style={styles.subtitle}>You have {this.state.allFoodItems.length} items in your fridge!</Text>
             <Shelves />
           </ScrollView>
         </View>
