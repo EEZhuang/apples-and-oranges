@@ -81,6 +81,7 @@ class Add extends Component {
 
     this.state = {
       name: '',
+      emoji: '',
       expDate: null
     }
   }
@@ -95,12 +96,14 @@ class Add extends Component {
       },
       body: JSON.stringify({
         name: this.state.name,
+        emoji: this.state.emoji,
         'exp-date': this.state.expDate
       })
     }).then((json) => {
       Alert.alert('Success!', 'Food item data saved correctly')
       this.setState({
         name: '',
+        emoji: '',
         expDate: null
       })
       this.props.navigation.navigate('Fridge')
@@ -124,6 +127,13 @@ class Add extends Component {
               placeholder="Apple"
               value={this.state.name}
               onChangeText={(text) => this.setState({ name: text })}
+            />
+            <Text style={styles.content}>Display emoji</Text>
+            <TextInput
+              style={styles.formInput}
+              placeholder="{example: 🍎}"
+              value={this.state.emoji}
+              onChangeText={(text) => this.setState({ emoji: text })}
             />
             <Text style={styles.content}>Expiration date (yyyy-mm-dd)</Text>
             <TextInput
