@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     color: '#323232',
     textDecorationColor: '#D0E2FF',
     textDecorationLine: 'underline',
-    paddingBottom: 20,
+    paddingBottom: 10,
   },
   content: {
     fontFamily: 'IBMPlexSans-Light',
@@ -55,8 +55,7 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     flex: 1,
-    paddingTop: 15,
-    width: 175
+    marginBottom: 15,
   },
   button: {
     backgroundColor: '#1062FE',
@@ -97,6 +96,11 @@ class Fridge extends Component {
           <ScrollView style={styles.scroll}>
           <Text style={styles.title}>Food in your fridge</Text>
             <Text style={styles.subtitle}>You have {this.state.allFoodItems.length} items in your fridge!</Text>
+            <View style={styles.buttonGroup}>
+              <TouchableOpacity onPress={() => this.add()}>
+                <Text style={styles.button}>Went grocery shopping? Add more!</Text>
+              </TouchableOpacity>
+            </View>
             <Shelves />
           </ScrollView>
         </View>
