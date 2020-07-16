@@ -60,10 +60,12 @@ class Fridge extends Component {
     for (i; i < allFoodItems.length; i++) {
       let food = allFoodItems[i];
       let timeLeft = calcTimeDelta(food["exp-date"]).days;
+      let key = food['name'].concat(food['exp-date']);
       let foodItem =
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate('Details', { json: food })}
           underlayColor='#dcdcdc'
+          key={key}
         >
           <View>
             <Text style={{fontSize:50, alignItems:'center'}}>{food.emoji}</Text>
@@ -76,7 +78,7 @@ class Fridge extends Component {
       // If row is filled or last row
       if (numItems % 4 === 0 || numItems === allFoodItems.length) {
         shelves.push(
-          <View style={styles.center}>
+          <View key={i} style={styles.center}>
             <View style={{width: 375, height: 20}}/>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
               <View style={{width: 30, height: 70}}></View>
