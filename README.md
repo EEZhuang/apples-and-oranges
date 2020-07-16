@@ -1,4 +1,4 @@
-# apples & oranges
+# apples 🍎 & oranges 🍊
 
 ## Authors
 * Justin Chen
