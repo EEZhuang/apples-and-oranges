@@ -92,16 +92,22 @@ class Details extends React.Component {
     super(props);
     this.state = {
       json: null,
-      name: "Carrot",
-      expDate: "2020-08-19",
-      emoji: "🥕",
+      name: null,
+      expDate: null,
+      emoji: null,
       edit: false
     };
   }
 
-  /*componentDidMount() {
-    this.setState({json: this.props.json, name: this.props.json.name, expDate: this.props.json.expDate});
-  }*/
+  componentDidMount() {
+    this.setState({json: this.props.route.params.json, name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(this.props.route.params.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
+      this.setState({name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
+    }
+  }
 
   updateJSON() {
     return fetch('http://localhost:3000/update', {
@@ -163,17 +169,21 @@ class Details extends React.Component {
     }
   }
 
+  done() {
+    if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
+      this.updateJSON();
+    }
+    this.setState({edit: false});
+  }
+
   displayEditDoneButton() {
     if (this.state.edit == true) {
       return (
-        <TouchableOpacity onPress={state => this.setState({edit: false})}>
+        <TouchableOpacity onPress={state => this.done()}>
           <Text style={styles.button}>Done</Text>
         </TouchableOpacity>
       );
     } else {
-      if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
-        this.updateJSON();
-      }
       return(
         <TouchableOpacity onPress={state => this.setState({edit: true})}>
           <Text style={styles.button}>Edit</Text>
