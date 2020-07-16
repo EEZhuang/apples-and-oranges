@@ -104,8 +104,8 @@ class Details extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (JSON.stringify(this.props.route.params.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
-      this.setState({name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
+    if (JSON.stringify(this.props.route.params.json) != JSON.stringify(this.state.json)) {
+      this.setState({json: this.props.route.params.json, name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
     }
   }
 
