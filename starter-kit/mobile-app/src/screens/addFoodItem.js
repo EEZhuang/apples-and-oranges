@@ -131,7 +131,7 @@ class Add extends Component {
             <Text style={styles.content}>Display emoji</Text>
             <TextInput
               style={styles.formInput}
-              placeholder="🍎"
+              placeholder="{example: 🍎}"
               value={this.state.emoji}
               onChangeText={(text) => this.setState({ emoji: text })}
             />
