@@ -144,17 +144,10 @@ class Details extends React.Component {
     }
   }
 
-  done() {
-    if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate})) {
-      this.updateJSON();
-    }
-    this.setState({edit: false});
-  }
-
   displayEditDoneButton() {
     if (this.state.edit == true) {
       return (
-        <TouchableOpacity onPress={this.done()}>
+        <TouchableOpacity onPress={state => this.setState({edit: false})}>
           <Text style={styles.button}>Done</Text>
         </TouchableOpacity>
       );
