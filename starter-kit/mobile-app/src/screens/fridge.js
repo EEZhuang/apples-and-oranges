@@ -36,16 +36,15 @@ const styles = StyleSheet.create({
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 36,
     color: '#323232',
-    paddingBottom: 15
+    paddingBottom: 10
   },
   subtitle: {
     fontFamily: 'IBMPlexSans-Light',
-    fontSize: 24,
+    fontSize: 16,
     color: '#323232',
     textDecorationColor: '#D0E2FF',
     textDecorationLine: 'underline',
-    paddingBottom: 5,
-    paddingTop: 20
+    paddingBottom: 20,
   },
   content: {
     fontFamily: 'IBMPlexSans-Light',
@@ -56,8 +55,7 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     flex: 1,
-    paddingTop: 15,
-    width: 175
+    paddingBottom: 20,
   },
   button: {
     backgroundColor: '#1062FE',
@@ -69,8 +67,17 @@ const styles = StyleSheet.create({
     textAlign:'center',
     marginTop: 15
   },
-  foodButton: {
-
+  shelves: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderWidth: 1,
+    borderColor: '#e0e0e0'
+  },
+  fruit: {
+    fontSize: 50,
+    margin: 10,
+    borderWidth: 1,
   }
 });
 
@@ -84,100 +91,81 @@ const styles = StyleSheet.create({
 class Fridge extends Component {
   constructor (props) {
     super(props);
-    this.wrapInFridge = this.wrapInFridge.bind(this);
-    this.getShelves = this.getShelves.bind(this);
+    this.getFood = this.getFood.bind(this)
+    this.renderFood = this.renderFood.bind(this);
+    this.add = this.add.bind(this);
 
     this.state = {
       allFoodItems: []
     };
   }
 
-  componentDidMount() {
-    // get all food items
-    /*
-    */
+  async componentDidMount() {
+    await this.getFood();
+  }
+
+  getFood() {
     fetch('http://localhost:3000/food', {method: 'GET'})
       .then(res => res.json())
-      //.then(json => console.log(json))
-      //.then(json => allFoodItems = json)
-      .then(json => this.setState({ allFoodItems: json }))
+      .then((json) => {
+        this.setState({ allFoodItems: json })
+      })
       .catch((error) => {
         Alert.alert('Error', 'There was a problem retrieving food items');
         console.error(error);
       });
   }
 
-  wrapInFridge() {
-      const Shelves = () => this.getShelves();
-
-      return (
-        <View style={styles.center}>
-          <ScrollView style={styles.scroll}>
-            <Text style={styles.subtitle}>Fridge!</Text>
-            <Shelves />
-          </ScrollView>
-        </View>
-
-      );
+  add() {
+    this.props.navigation.navigate('Add')
   }
 
-  getShelves() {
-    let allFoodItems = this.state.allFoodItems;
+  details(item) {
+    console.log(item);
+    this.props.navigation.navigate('Details', { json: item })
+  }
 
-    // Column
-    let shelves = [];
-    // Row
-    let shelf = [];
-    let numItems = 0;
+  renderFood() {
+    this.getFood();
+    const allFoodItems = this.state.allFoodItems;
 
-    // Traverse items in order
-    allFoodItems.forEach(function(food) {
-      let foodItem = createFoodItem(food);
-      shelf.push(foodItem);
-      numItems++;
-
-      // Row is filled or last row
-      if (numItems % 4 === 0 || numItems === allFoodItems.length) {
-        shelves.push(
-          <View style={styles.center}>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
-              {shelf}
-            </View>
-            <View style={{width: 370, height: 10, backgroundColor: 'powderblue'}}/>
+    const mapping = allFoodItems.map((item) => {
+      return (
+        <TouchableHighlight onPress={() => this.details(item)} underlayColor='#dcdcdc'>
+          <View>
+            <Text style={styles.fruit}>{item.emoji}</Text>
           </View>
-        );
+        </TouchableHighlight>
+      );
+    })
 
-        // Reset to empty shelf
-        shelf = [];
-      }
-    });
-
-    return shelves;
+    return (
+      <View style={styles.center}>
+        <View style={styles.shelves}>
+          {mapping}
+        </View>   
+      </View>
+    );
   }
 
   render = () => {
-    const Fridge = () => this.wrapInFridge();
+    const shelves = this.renderFood();
 
     return (
-      <Fridge />
+      <View style={styles.center}>
+          <ScrollView style={styles.scroll}>
+            <Text style={styles.title}>Food in your fridge</Text>
+            <Text style={styles.subtitle}>You have {this.state.allFoodItems.length} items in your fridge!</Text>
+              {shelves}
+            <View style={styles.buttonGroup}>
+              <TouchableOpacity onPress={() => this.add()}>
+                <Text style={styles.button}>Went grocery shopping? Add more!</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
     );
   };
-}
-
-function createFoodItem(foodItem) {
-  return (
-    <TouchableHighlight
-      onPress={()=>{}}
-      underlayColor='#dcdcdc'
-    >
-      <View>
-        <Image
-          style={styles.foodItem}
-          source={require('../images/tomato.png')}
-        />
-      </View>
-     </TouchableHighlight>
-  );
 }
 
 export default Fridge;
