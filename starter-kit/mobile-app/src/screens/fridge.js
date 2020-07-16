@@ -68,18 +68,8 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign:'center',
     marginTop: 15
-  },
-  foodButton: {
-
   }
 });
-
-// Get all food items for the user
-// Calculate how many shelves needed
-// Display shelves
-// Display food items on shelves
-// Display Progress Bar
-
 
 class Fridge extends Component {
   constructor (props) {
@@ -94,12 +84,8 @@ class Fridge extends Component {
 
   componentDidMount() {
     // get all food items
-    /*
-    */
     fetch('http://localhost:3000/food', {method: 'GET'})
       .then(res => res.json())
-      //.then(json => console.log(json))
-      //.then(json => allFoodItems = json)
       .then(json => this.setState({ allFoodItems: json }))
       .catch((error) => {
         Alert.alert('Error', 'There was a problem retrieving food items');
@@ -131,8 +117,19 @@ class Fridge extends Component {
     let numItems = 0;
 
     // Traverse items in order
-    allFoodItems.forEach(function(food) {
-      let foodItem = createFoodItem(food);
+    let i = 0;
+    for (i; i < allFoodItems.length; i++) {
+      let food = allFoodItems[i];
+      let foodItem =
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('Details', { json: food })}
+          underlayColor='#dcdcdc'
+        >
+          <View>
+            <Text style={{fontSize:50}}>o</Text>
+            <Text style={{fontSize:50}}>{food.emoji}</Text>
+          </View>
+         </TouchableHighlight>
       shelf.push(foodItem);
       numItems++;
 
@@ -150,7 +147,7 @@ class Fridge extends Component {
         // Reset to empty shelf
         shelf = [];
       }
-    });
+    };
 
     return shelves;
   }
@@ -162,22 +159,6 @@ class Fridge extends Component {
       <Fridge />
     );
   };
-}
-
-function createFoodItem(foodItem) {
-  return (
-    <TouchableHighlight
-      onPress={()=>{}}
-      underlayColor='#dcdcdc'
-    >
-      <View>
-        <Image
-          style={styles.foodItem}
-          source={require('../images/tomato.png')}
-        />
-      </View>
-     </TouchableHighlight>
-  );
 }
 
 export default Fridge;
