@@ -42,7 +42,9 @@ class Fridge extends Component {
           <ScrollView style={styles.scroll}>
           <Text style={styles.title}>Food in your fridge 🍳</Text>
             <Text style={styles.subtitle}>You have {this.state.allFoodItems.length} items in your fridge!</Text>
-            <Shelves />
+            <View style={styles.shelves}>
+              <Shelves />
+            </View>
             {/* <View style={styles.buttonGroup}>
               <TouchableOpacity onPress={() => this.add()}>
                 <Text style={styles.button}>Went grocery shopping? Add more!</Text>
@@ -87,7 +89,7 @@ class Fridge extends Component {
       // If row is filled or last row, add shelf to shelves
       if (numItems % 4 === 0 || numItems === allFoodItems.length) {
         shelves.push(
-          <View key={i} style={styles.center}>
+          <View key={i} style={styles.center2}>
             <View style={{width: 375, height: 20}}/>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
               <View style={{width: 30, height: 70}}></View>
@@ -134,11 +136,31 @@ class Fridge extends Component {
 }
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: '#FFFFFF',
+    marginBottom: 0,
+    paddingBottom: 10,
+  },
+  center2: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: '#FFFFFF',
+    marginBottom: 15,
+  },
+  shelves: {
+    marginBottom: 80,
+  },
   scroll: {
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 25,
-    paddingTop: 75
+    paddingTop: 75,
   },
   title: {
     fontFamily: 'IBMPlexSans-Medium',

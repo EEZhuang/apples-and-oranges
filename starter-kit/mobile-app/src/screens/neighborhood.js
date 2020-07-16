@@ -11,10 +11,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: '#FFFFFF',
+    paddingBottom: 10,
+    paddingTop: 50
+  },
+  scroll: {
     paddingLeft: 20,
     paddingRight: 20,
-    paddingBottom: 25,
-    paddingTop: 50
+    alignSelf: 'stretch',
   },
   title: {
     fontFamily: 'IBMPlexSans-Medium',
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     padding: 12,
     textAlign:'center',
-    marginTop: 15
+    marginTop: 15,
   },
   nameInput: {
     fontFamily: 'IBMPlexSans-Medium',
@@ -125,7 +128,8 @@ class Details extends React.Component {
   render() {
     return (
       <View style={styles.center}>
-        <TouchableOpacity onPress={() => this.exit()}>
+        <ScrollView style={styles.scroll}>
+        <TouchableOpacity style={{width: 34.5}} onPress={() => this.exit()}>
           <Text style={styles.button}>&lt;</Text>
         </TouchableOpacity>
         <View style={{width: 15, height: 15}}></View>
@@ -213,6 +217,7 @@ class Details extends React.Component {
           </View>
           <View style={{width: 15, height: 25}}></View>
         </View>
+        </ScrollView>
       </View>
     );
   }
