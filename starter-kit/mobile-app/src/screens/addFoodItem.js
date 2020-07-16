@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { emojify } from 'react-emojione'
+import Config from 'react-native-config';
 // import { sha256 } from 'react-native-sha256'
 
 const styles = StyleSheet.create({
@@ -86,7 +87,7 @@ class Add extends Component {
 
   // POST to localhost:3000
   submit () {
-    return fetch('http://localhost:3000/food', {
+    return fetch(Config.STARTER_KIT_SERVER_URL + '/food', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { calcTimeDelta } from 'react-countdown'
 import { StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, Button, Linking, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Config from 'react-native-config';
 
 /*
  * Creates a display of all your fridge items sorted based on expiration date
@@ -113,7 +114,8 @@ class Fridge extends Component {
 
   // gets all food items for user
   getAllFoodItems() {
-    fetch('http://localhost:3000/food', {method: 'GET'})
+      // get all food items
+    fetch(Config.STARTER_KIT_SERVER_URL + '/food', {method: 'GET'})
     .then(res => res.json())
     .then(json => this.setState({ allFoodItems: json }))
     .catch((error) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { calcTimeDelta } from 'react-countdown'
 import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking, TextInput, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Config from 'react-native-config';
 
 const styles = StyleSheet.create({
   center: {
@@ -105,7 +106,7 @@ class Details extends React.Component {
 
   // Updates the item info when necessary
   updateJSON() {
-    return fetch('http://localhost:3000/update', {
+    return fetch(Config.STARTER_KIT_SERVER_URL + '/update', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -198,7 +199,7 @@ class Details extends React.Component {
   }
 
   deleteItem() {
-    return fetch('http://localhost:3000/delete', {
+    return fetch(Config.STARTER_KIT_SERVER_URL + '/delete', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
