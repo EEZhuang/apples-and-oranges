@@ -7,7 +7,4 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:SolutionStarterKitDisasters2020App.xcodeproj">
-   </FileRef>
 </Workspace>
