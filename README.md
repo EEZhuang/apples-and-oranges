@@ -74,7 +74,13 @@ The Community page enables users to quickly offer items to neighbors and friends
 ### 1. Clone the repository
 1. In terminal: `git clone https://github.com/EEZhuang/ibm-hack-2020.git`
 
-### 2. Run the Server
+### 2. Install dependencies 
+- Node.js https://nodejs.org/en/
+- Watchman https://facebook.github.io/watchman/
+- Xcode https://itunes.apple.com/us/app/xcode/id497799835?mt=12
+- Cocoapods https://guides.cocoapods.org/using/getting-started.html
+
+### 3. Run the Server
 
 To set up and launch the server application, from a terminal:
 1. Go to the `server-app` directory of the cloned repo.
@@ -89,7 +95,7 @@ To set up and launch the server application, from a terminal:
         3. Push the app to IBM Cloud: `ibmcloud app push`.
         4. The server can be accessed at the URL shown in the console (`routes`) after the app successful uploads and starts (for example,  https://solution-starter-kit-disasters-2020-server-random-route.bluemix.net).
 
-### 3. Run the Mobile Application
+### 4. Run the Mobile Application
 
 To run the mobile application,  from a terminal:
 1.  Go to the `mobile-app` directory.
