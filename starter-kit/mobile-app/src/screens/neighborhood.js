@@ -172,7 +172,7 @@ class Details extends React.Component {
           <View style={{flexDirection: 'row'}}>
            <View style={{width: 20, height: 70}}></View>
            <View style={{flexDirection: 'column'}}>
-            <Text style={styles.name}>Jessica Zhang</Text>
+            <Text style={styles.name}>Jessica Zheng</Text>
             <Text style={{fontSize:70, alignItems:'center'}}>🍓</Text>
            </View>
            <View style={{width: 20, height: 70}}></View>
