@@ -88,6 +88,10 @@ class Fridge extends Component {
      });
   }
 
+  add() {
+    this.props.navigation.navigate('Add')
+  }
+
   wrapInFridge() {
       const Shelves = () => this.getShelves();
 
