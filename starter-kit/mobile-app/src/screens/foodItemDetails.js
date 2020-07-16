@@ -70,6 +70,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 50
   },
+  emojiInput: {
+    fontFamily: 'IBMPlexSans-Light',
+    fontSize: 36,
+    borderColor: '#e0e0e0',
+    borderWidth: 1,
+    height: 50,
+    width: 50
+  },
   dateInput: {
     fontFamily: 'IBMPlexSans-Light',
     fontSize: 16,
@@ -77,24 +85,29 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 50
   }
-
 });
 
 class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //json: null,
-      json: {"name":"Carrot","exp-date":"2020-08-19"}, //for demo purposes
-      name: "Carrot",
-      expDate: "2020-08-19",
+      json: null,
+      name: null,
+      expDate: null,
+      emoji: null,
       edit: false
     };
   }
 
-  /*componentDidMount() {
-    this.setState({json: this.props.json, name: this.props.json.name, expDate: this.props.json.expDate});
-  }*/
+  componentDidMount() {
+    this.setState({json: this.props.route.params.json, name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(this.props.route.params.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
+      this.setState({name: this.props.route.params.json.name, expDate: this.props.route.params.json['exp-date'], emoji: this.props.route.params.json.emoji});
+    }
+  }
 
   updateJSON() {
     return fetch('http://localhost:3000/update', {
@@ -103,10 +116,10 @@ class Details extends React.Component {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify([this.state.json, {name: this.state.name, 'exp-date': this.state.expDate}])
+      body: JSON.stringify([this.state.json, {name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji}])
       }).then((json) => {
         Alert.alert('Success!', 'Food item data updated correctly')
-        this.setState({json : {name: this.state.name, 'exp-date': this.state.expDate}});
+        this.setState({json : {name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji}});
       })
         .catch((error) => {
           Alert.alert('Error', 'There was a problem updating food item data')
@@ -126,6 +139,10 @@ class Details extends React.Component {
     this.setState({expDate: text.trim()});
   }
 
+  updateEmoji(text) {
+    this.setState({emoji: text.trim()})
+  }
+
   displayName() {
     if (this.state.edit == true) {
       return (<TextInput onChangeText={text => this.updateName(text)} defaultValue={this.state.name} style={styles.nameInput} />);
@@ -133,6 +150,14 @@ class Details extends React.Component {
       return (
         <Text style={styles.title}>{this.state.name}</Text>
       );
+    }
+  }
+
+  displayEmoji() {
+    if (this.state.edit == true) {
+      return (<TextInput onChangeText={text => this.updateEmoji(text)} defaultValue={this.state.emoji} style={styles.emojiInput} />);
+    } else {
+      return <Text style={styles.title}>{this.state.emoji}</Text>
     }
   }
 
@@ -144,17 +169,21 @@ class Details extends React.Component {
     }
   }
 
+  done() {
+    if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate, emoji: this.state.emoji})) {
+      this.updateJSON();
+    }
+    this.setState({edit: false});
+  }
+
   displayEditDoneButton() {
     if (this.state.edit == true) {
       return (
-        <TouchableOpacity onPress={state => this.setState({edit: false})}>
+        <TouchableOpacity onPress={state => this.done()}>
           <Text style={styles.button}>Done</Text>
         </TouchableOpacity>
       );
     } else {
-      if (JSON.stringify(this.state.json) != JSON.stringify({name: this.state.name, 'exp-date': this.state.expDate})) {
-        this.updateJSON();
-      }
       return(
         <TouchableOpacity onPress={state => this.setState({edit: true})}>
           <Text style={styles.button}>Edit</Text>
@@ -186,10 +215,11 @@ class Details extends React.Component {
   render() {
     return (
       <View style={styles.center}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Fridge')}}>
           <Text style={styles.button}>x</Text>
         </TouchableOpacity>
-        <Text style={styles.subtitle}>{this.state.category}</Text>
+        <Text style={styles.title}/>
+        {this.displayEmoji()}
         {this.displayName()}
         <Text style={styles.subtitle}>
           {this.calcDaysLeft(this.state.expDate)} Days Left

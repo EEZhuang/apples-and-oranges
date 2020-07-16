@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Svg, Path } from 'react-native-svg';
+import { Svg, Path, Circle } from 'react-native-svg';
 
 export const HomeIcon = (props) => {
   const height = props.height || 28;
@@ -16,6 +16,24 @@ export const HomeIcon = (props) => {
     </Svg>
   );
 };
+
+export const AddIcon = (props) => {
+  const height = props.height || 28;
+  const width = props.width || 28;
+  const fill = props.fill || '#000';
+  const stroke = props.stroke || 'none';
+  const strokeWidth = props.strokeWidth || 0;
+
+  return (
+    <Svg height={height} width={width} viewBox='0 0 32 32'>
+      <Path fill={fill} stroke={stroke} strokeLinecap='round' strokeLinejoin='round' strokeWidth={strokeWidth}
+            d="M16,4c6.6,0,12,5.4,12,12s-5.4,12-12,12S4,22.6,4,16S9.4,4,16,4 M16,2C8.3,2,2,8.3,2,16s6.3,14,14,14s14-6.3,14-14 S23.7,2,16,2z"/>
+      <Path fill={fill} stroke={stroke} strokeLinecap='round' strokeLinejoin='round' strokeWidth={strokeWidth}
+            d="M17 15L17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17 24 15z"/>
+    </Svg>
+  );
+};
+
 
 export const ChatIcon = (props) => {
   const height = props.height || 28;
