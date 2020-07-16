@@ -32,7 +32,7 @@ In the United States, food waste is estimated at between 30–40 percent of the 
 
 
 ## Our Solution
-![Fridge Screen](./images/fridge.png)
+<img src="./images/fridge.png" alt="" width=414 height=896>
 
 ## Video
 
