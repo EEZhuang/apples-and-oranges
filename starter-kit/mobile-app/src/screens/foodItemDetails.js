@@ -85,7 +85,7 @@ class Details extends React.Component {
     super(props);
     this.state = {
       //json: null,
-      json: {"name":"Carrot","exp-date":"2012-03-19"} //for demo purposes
+      json: {"name":"Carrot","exp-date":"2020-08-19"} //for demo purposes
     };
   }
 
@@ -138,10 +138,10 @@ class Details extends React.Component {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: this.state.json
+      body: JSON.stringify(this.state.json)
     }).then((json) => {
       Alert.alert('Success!', 'Food item data deleted correctly')
-      this.setState({json: {"name":"","exp-date":"]"}}) //for demo purposes
+      this.setState({json: {"name":"","exp-date":""}}) //for demo purposes
       //this.setState({json: null})
       this.props.navigation.navigate('Fridge')
     })
