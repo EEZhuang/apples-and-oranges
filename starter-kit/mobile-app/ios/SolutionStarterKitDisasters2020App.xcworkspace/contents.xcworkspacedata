@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/jessicazheng/Desktop/ibm-hack-2020/starter-kit/mobile-app/ios/Apples&amp;OrangesApp.xcodeproj">
+      location = "group:SolutionStarterKitDisasters2020App.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
