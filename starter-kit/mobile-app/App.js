@@ -9,6 +9,7 @@ import LoadingScreen from './src/screens/loading';
 import Fridge from './src/screens/fridge';
 import Add from './src/screens/addFoodItem';
 import Details from './src/screens/foodItemDetails';
+import Analytics from './src/screens/analytics'
 // import Chat from './src/screens/chat';
 // import Map from './src/screens/map';
 
@@ -49,6 +50,13 @@ const TabLayout = () => (
     <Tab.Screen
       name='Details'
       component={Details}
+      options={{
+        tabBarIcon: ({color}) => (<MapIcon fill={color} />)
+      }}
+    />
+    <Tab.Screen
+      name='Analytics'
+      component={Analytics}
       options={{
         tabBarIcon: ({color}) => (<MapIcon fill={color} />)
       }}
