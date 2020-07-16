@@ -36,16 +36,15 @@ const styles = StyleSheet.create({
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 36,
     color: '#323232',
-    paddingBottom: 15
+    paddingBottom: 10
   },
   subtitle: {
     fontFamily: 'IBMPlexSans-Light',
-    fontSize: 24,
+    fontSize: 16,
     color: '#323232',
     textDecorationColor: '#D0E2FF',
     textDecorationLine: 'underline',
-    paddingBottom: 5,
-    paddingTop: 20
+    paddingBottom: 20,
   },
   content: {
     fontFamily: 'IBMPlexSans-Light',
