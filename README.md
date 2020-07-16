@@ -1,4 +1,4 @@
-# tempName
+# apples & oranges
 
 ## Authors
 * Justin Chen
@@ -33,7 +33,7 @@ In the United States, food waste is estimated at between 30–40 percent of the 
 
 ## Our Solution
 ### Overview
-[tempName] aims to solve the larger issue of climate change by providing the tools for users to reduce individual waste. Not only is it geared to climate-enthusiasts who want to minimize their waste, but also everyday consumers that wish to save money. [tempName] appeals to a wide user base, thereby reducing more food waste regardless of the user's interest in reducing climate change.
+apples & oranges aims to solve the larger issue of climate change by providing the tools for users to reduce individual waste. Not only is it geared to climate-enthusiasts who want to minimize their waste, but also everyday consumers that wish to save money. apples & oranges appeals to a wide user base, thereby reducing more food waste regardless of the user's interest in reducing climate change.
 
 ### Fridge/Pantry 
 The interface allows users to conveniently keep track of all of their food. The Fridge sorts food items so that the user can quickly see the "high-priority" items that will need to be consumed soon. Adding, viewing, editing, and deleting food items is simple to use and requires minimal effort. 
@@ -90,7 +90,7 @@ To set up and launch the server application, from a terminal:
 ### 3. Run the Mobile Application
 
 To run the mobile application,  from a terminal:
-1.  Go to the `starter-kit/mobile-app` directory.
+1.  Go to the `mobile-app` directory.
 1. Install the dependencies: `npm install`.
 1. Go to the `ios` directory: `cd ios`.
     1. Install pod dependencies: `pod install`.
