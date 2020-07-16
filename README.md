@@ -78,7 +78,7 @@ The Community page enables users to quickly offer items to neighbors and friends
 ## How to Run
 
 ### 1. Clone the repository
-1. In terminal: `git clone https://github.com/EEZhuang/ibm-hack-2020.git`
+1. In terminal: `git clone https://github.com/EEZhuang/apples-and-oranges-2020.git`
 
 ### 2. Install dependencies 
 - Node.js https://nodejs.org/en/
