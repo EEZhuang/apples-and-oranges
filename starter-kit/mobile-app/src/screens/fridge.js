@@ -86,6 +86,7 @@ class Fridge extends Component {
     super(props);
     this.wrapInFridge = this.wrapInFridge.bind(this);
     this.getShelves = this.getShelves.bind(this);
+    this.getAllFoodItems = this.getAllFoodItems.bind(this);
 
     this.state = {
       allFoodItems: []
@@ -93,18 +94,10 @@ class Fridge extends Component {
   }
 
   componentDidMount() {
-    // get all food items
-    /*
-    */
-    fetch('http://localhost:3000/food', {method: 'GET'})
-      .then(res => res.json())
-      //.then(json => console.log(json))
-      //.then(json => allFoodItems = json)
-      .then(json => this.setState({ allFoodItems: json }))
-      .catch((error) => {
-        Alert.alert('Error', 'There was a problem retrieving food items');
-        console.error(error);
-      });
+    this.getAllFoodItems();
+    this._navListener = this.props.navigation.addListener('focus', () => {
+      this.getAllFoodItems();
+     });
   }
 
   wrapInFridge() {
@@ -153,6 +146,21 @@ class Fridge extends Component {
     });
 
     return shelves;
+  }
+
+  getAllFoodItems() {
+      // get all food items
+      /*
+      */
+    fetch('http://localhost:3000/food', {method: 'GET'})
+    .then(res => res.json())
+    //.then(json => console.log(json))
+    //.then(json => allFoodItems = json)
+    .then(json => this.setState({ allFoodItems: json }))
+    .catch((error) => {
+      Alert.alert('Error', 'There was a problem retrieving food items');
+      console.error(error);
+    });
   }
 
   render = () => {
