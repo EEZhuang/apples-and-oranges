@@ -56,10 +56,7 @@ const TabLayout = () => (
 );
 
 const AddStackLayout = () => (
-  <Stack.Navigator
-  screenOptions={{
-    headerShown: false
-  }}>
+  <Stack.Navigator>
     <Stack.Screen name='Add food item'>
       {(props) => <Add {...props} navigation={props.navigation} />}
     </Stack.Screen>
