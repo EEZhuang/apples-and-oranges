@@ -45,14 +45,16 @@ The interface allows users to conveniently keep track of all of their food. The 
 
 ### Analytics
 The Analytics page gives users insight on their waste and impact on the climate. Users are able to see commonly wasted foods and high-impact foods purchased.
+
 <img src="./images/analytics.png" alt="" width=248 height=538>
 
 ### Community Initiative
 The Community page enables users to quickly offer items to neighbors and friends. Not only does this minimize the user's food waste, but also inspire a collective call for change in reducing greenhouse gas emissions.
+
 <img src="./images/neighborhood.png" alt="" width=248 height=538>
 
 ## Our Codebase
-/[tempName]
+`/[tempName]
     /mobile-app
         /src
             /screens
@@ -63,7 +65,7 @@ The Community page enables users to quickly offer items to neighbors and friends
     /server-app
         /foodServer.js
         /foodStore.json
-        /node_modules
+        /node_modules`
 
 ## How to Run
 
