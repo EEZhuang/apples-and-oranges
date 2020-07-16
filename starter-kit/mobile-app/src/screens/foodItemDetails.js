@@ -216,11 +216,14 @@ class Details extends React.Component {
     return (
       <View style={styles.center}>
         <TouchableOpacity onPress={() => {this.props.navigation.navigate('Fridge')}}>
-          <Text style={styles.button}>x</Text>
+          <Text style={styles.button}>&lt;</Text>
         </TouchableOpacity>
         <Text style={styles.title}/>
-        {this.displayEmoji()}
-        {this.displayName()}
+        <View style={{flexDirection: 'row'}}>
+          {this.displayName()}
+          <View style={{width: 15, height: 70}}></View>
+          {this.displayEmoji()}
+        </View>
         <Text style={styles.subtitle}>
           {this.calcDaysLeft(this.state.expDate)} Days Left
         </Text>
