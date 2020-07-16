@@ -1,7 +1,7 @@
 import React from 'react';
 import { calcTimeDelta } from 'react-countdown'
 import { StyleSheet, View, Image, Text, TouchableOpacity, Button, Linking, TextInput, Alert } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, RotationGestureHandler } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   center: {
@@ -84,14 +84,16 @@ class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //json: null,
+      // json: null,
       json: {"name":"Carrot","exp-date":"2020-08-19"} //for demo purposes
     };
   }
 
-  /*componentDidMount() {
-    this.setState({json: this.props.json});
-  }*/
+  componentDidMount() {
+    const { json } = this.props.route.params;
+    console.log(json)
+    this.setState({json: json});
+  }
 
   calcDaysLeft(expDate) {
     return calcTimeDelta(expDate).days;

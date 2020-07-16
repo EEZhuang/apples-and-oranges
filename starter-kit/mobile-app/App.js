@@ -48,7 +48,7 @@ const TabLayout = () => (
     />
     <Tab.Screen
       name='Details'
-      component={Details}
+      component={DetailsStackLayout}
       options={{
         tabBarIcon: ({color}) => (<MapIcon fill={color} />)
       }}
@@ -60,6 +60,14 @@ const AddStackLayout = () => (
   <Stack.Navigator>
     <Stack.Screen name='Add food item'>
       {(props) => <Add {...props} navigation={props.navigation} />}
+    </Stack.Screen>
+  </Stack.Navigator>
+);
+
+const DetailsStackLayout = () => (
+  <Stack.Navigator>
+    <Stack.Screen name='Food item details' initialParams={{json: {}}}>
+      {(props) => <Details {...props} navigation={props.navigation} route={props.route} />}
     </Stack.Screen>
   </Stack.Navigator>
 );
